@@ -127,8 +127,18 @@
     @apply w-full;
   }
   
+  /* Updated grid pattern to match Behance design */
   .grid-pattern {
-    background-image: radial-gradient(#233554 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-image: 
+      linear-gradient(to right, rgba(35, 53, 84, 0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(35, 53, 84, 0.1) 1px, transparent 1px);
+  }
+  
+  .bg-grid-pattern {
     background-size: 30px 30px;
+    background-image: 
+      linear-gradient(to right, rgba(100, 255, 218, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(100, 255, 218, 0.05) 1px, transparent 1px);
   }
 }
