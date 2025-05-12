@@ -4,13 +4,18 @@ import { Award, Star, Trophy } from "lucide-react";
 const AchievementCard = ({ 
   icon: Icon, 
   title, 
-  description 
+  description,
+  index
 }: { 
   icon: any; 
   title: string; 
   description: string;
+  index: number;
 }) => (
-  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-6 rounded-lg border border-tech-navy-light bg-tech-navy hover:border-tech-teal/40 transition-all duration-300">
+  <div 
+    className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-6 rounded-lg border border-tech-navy-light bg-tech-navy hover-card hover-glow"
+    style={{ animationDelay: `${index * 0.1}s` }}
+  >
     <div className="flex items-center justify-center w-12 h-12 rounded-full bg-tech-teal/10 text-tech-teal">
       <Icon size={24} />
     </div>
@@ -42,8 +47,12 @@ const Achievements = () => {
 
   return (
     <section id="achievements" className="py-20 relative">
+      {/* Background decorative elements */}
+      <div className="absolute top-20 left-0 w-72 h-72 bg-blue-500/5 rounded-full filter blur-3xl"></div>
+      <div className="absolute bottom-10 right-10 w-60 h-60 bg-tech-teal/5 rounded-full filter blur-3xl"></div>
+      
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="section-heading section-heading-03">Achievements & Experience</h2>
+        <h2 className="section-heading section-heading-05">Achievements & Experience</h2>
         
         <div className="space-y-6">
           {achievements.map((achievement, index) => (
@@ -52,6 +61,7 @@ const Achievements = () => {
               icon={achievement.icon}
               title={achievement.title}
               description={achievement.description}
+              index={index}
             />
           ))}
         </div>

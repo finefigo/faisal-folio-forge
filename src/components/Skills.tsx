@@ -2,8 +2,11 @@
 import { Card } from "@/components/ui/card";
 import { Code, Image, BookOpen, Activity } from "lucide-react";
 
-const SkillCard = ({ title, icon: Icon, skills }: { title: string; icon: any; skills: string[] }) => (
-  <Card className="bg-tech-navy border border-tech-navy-light p-6 hover:border-tech-teal/50 transition-all duration-300">
+const SkillCard = ({ title, icon: Icon, skills, index }: { title: string; icon: any; skills: string[]; index: number }) => (
+  <Card 
+    className="bg-tech-navy border border-tech-navy-light p-6 hover-card hover-glow"
+    style={{ animationDelay: `${index * 0.1}s` }}
+  >
     <div className="flex items-center mb-4">
       <Icon className="w-5 h-5 text-tech-teal mr-3" />
       <h3 className="text-xl font-semibold text-tech-light">{title}</h3>
@@ -64,6 +67,10 @@ const Skills = () => {
 
   return (
     <section id="skills" className="py-20 relative">
+      {/* Background decorative elements */}
+      <div className="absolute top-40 right-0 w-80 h-80 bg-purple-500/5 rounded-full filter blur-3xl"></div>
+      <div className="absolute bottom-20 left-0 w-60 h-60 bg-tech-teal/5 rounded-full filter blur-3xl"></div>
+      
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="section-heading section-heading-02">What I'm Good At</h2>
         
@@ -74,6 +81,7 @@ const Skills = () => {
               title={category.title}
               icon={category.icon}
               skills={category.skills}
+              index={index}
             />
           ))}
         </div>

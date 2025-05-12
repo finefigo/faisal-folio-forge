@@ -4,8 +4,9 @@ import Header from '../components/Header';
 import Hero from '../components/Hero';
 import About from '../components/About';
 import Skills from '../components/Skills';
-import Achievements from '../components/Achievements';
 import Projects from '../components/Projects';
+import Achievements from '../components/Achievements';
+import Resume from '../components/Resume';
 import Patents from '../components/Patents';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
@@ -37,6 +38,33 @@ const Index = () => {
     return () => document.removeEventListener('click', handleAnchorClick);
   }, []);
 
+  // Add animation observer for scroll animations
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fadeIn');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    });
+
+    // Target all section elements
+    const sections = document.querySelectorAll('section');
+    sections.forEach(section => {
+      section.classList.add('opacity-0');
+      observer.observe(section);
+    });
+
+    return () => {
+      sections.forEach(section => observer.unobserve(section));
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-tech-blue antialiased relative">
       {/* Background elements */}
@@ -55,8 +83,9 @@ const Index = () => {
         <Hero />
         <About />
         <Skills />
-        <Achievements />
         <Projects />
+        <Resume />
+        <Achievements />
         <Patents />
         <Contact />
       </main>

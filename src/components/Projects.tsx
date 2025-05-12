@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowUpRight, Github } from "lucide-react";
+import { ArrowRight, Github } from "lucide-react";
 
 interface Project {
   title: string;
@@ -13,15 +13,18 @@ interface Project {
   githubLink?: string;
 }
 
-const ProjectCard = ({ project }: { project: Project }) => {
+const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
   return (
-    <Card className="overflow-hidden bg-tech-navy border border-tech-navy-light hover:border-tech-teal/50 transition-all duration-300">
-      <div className="relative h-48 overflow-hidden">
-        <div className="absolute inset-0 bg-tech-blue/50 hover:bg-tech-blue/30 transition-all duration-300 z-10"></div>
+    <Card 
+      className="overflow-hidden bg-tech-navy border border-tech-navy-light hover-card hover-glow"
+      style={{ animationDelay: `${index * 0.1}s` }}
+    >
+      <div className="relative h-48 overflow-hidden group">
+        <div className="absolute inset-0 bg-tech-blue/50 group-hover:bg-tech-blue/30 transition-all duration-300 z-10"></div>
         <img
           src={project.image}
           alt={project.title}
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
         />
       </div>
       <CardContent className="p-6">
@@ -46,11 +49,11 @@ const ProjectCard = ({ project }: { project: Project }) => {
             <Button 
               variant="ghost" 
               size="sm"
-              className="hover:text-tech-teal hover:bg-tech-teal/10"
+              className="hover:text-tech-teal hover:bg-tech-teal/10 group"
               asChild
             >
               <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="flex items-center">
-                <ArrowUpRight className="w-4 h-4 mr-1" /> Live Demo
+                <ArrowRight className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-transform duration-300" /> Live Demo
               </a>
             </Button>
           )}
@@ -59,11 +62,11 @@ const ProjectCard = ({ project }: { project: Project }) => {
             <Button 
               variant="ghost" 
               size="sm"
-              className="hover:text-tech-teal hover:bg-tech-teal/10"
+              className="hover:text-tech-teal hover:bg-tech-teal/10 group"
               asChild
             >
               <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="flex items-center">
-                <Github className="w-4 h-4 mr-1" /> Code
+                <Github className="w-4 h-4 mr-1 group-hover:scale-110 transition-transform duration-300" /> Code
               </a>
             </Button>
           )}
@@ -114,13 +117,34 @@ const Projects = () => {
 
   return (
     <section id="projects" className="py-20 relative">
+      {/* Background decorative elements */}
+      <div className="absolute top-0 right-0 w-72 h-72 bg-tech-teal/5 rounded-full filter blur-3xl"></div>
+      <div className="absolute bottom-0 left-20 w-60 h-60 bg-blue-500/5 rounded-full filter blur-3xl"></div>
+      
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="section-heading section-heading-04">Projects I've Built</h2>
+        <h2 className="section-heading section-heading-03 animate-on-scroll">Projects I've Built</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} />
+            <ProjectCard key={index} project={project} index={index} />
           ))}
+        </div>
+        
+        <div className="mt-12 text-center">
+          <Button 
+            asChild
+            className="bg-transparent hover:bg-tech-teal/10 text-tech-teal border border-tech-teal rounded px-8 py-4 font-mono hover:scale-105 transition-all duration-300 group"
+          >
+            <a 
+              href="https://github.com/finefigo" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center"
+            >
+              View More Projects
+              <ArrowRight className="ml-2 group-hover:translate-x-2 transition-transform duration-300" />
+            </a>
+          </Button>
         </div>
       </div>
     </section>
