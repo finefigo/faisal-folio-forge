@@ -27,9 +27,9 @@ const Header = () => {
     { name: "About", url: "#about" },
     { name: "Skills", url: "#skills" },
     { name: "Projects", url: "#projects" },
-    { name: "Resume", url: "#resume" },
-    { name: "Achievements", url: "#achievements" },
     { name: "Patents", url: "#patents" },
+    { name: "Achievements", url: "#achievements" },
+    { name: "Resume", url: "#resume" },
     { name: "Contact", url: "#contact" },
   ];
 
