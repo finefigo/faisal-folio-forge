@@ -5,23 +5,23 @@ import { ArrowRight, FileText } from "lucide-react";
 const Patents = () => {
   const patents = [
     {
-      title: "Patent Title 1",
-      description: "The first patent filed through JIS College of Engineering.",
+      title: "AI-Powered Medical Diagnosis System",
+      description: "A patent for an AI system that assists in early medical diagnosis using computer vision techniques.",
       link: "#"
     },
     {
-      title: "Patent Title 2",
-      description: "The second patent filed through JIS College of Engineering.",
+      title: "AR Navigation System for Visually Impaired",
+      description: "Patented technology that uses AR to provide spatial awareness and navigation assistance for visually impaired users.",
       link: "#"
     },
     {
-      title: "Patent Title 3",
-      description: "The third patent filed through JIS College of Engineering.",
+      title: "Gesture-Based Interface for Smart Devices",
+      description: "Novel approach to human-computer interaction using advanced gesture recognition algorithms.",
       link: "#"
     },
     {
-      title: "Patent Title 4",
-      description: "The fourth patent filed through JIS College of Engineering.",
+      title: "Blockchain-Based Identity Verification",
+      description: "A secure identity verification system leveraging blockchain technology for enhanced security and privacy.",
       link: "#"
     }
   ];
@@ -63,10 +63,6 @@ const Patents = () => {
             </Card>
           ))}
         </div>
-        
-        <p className="text-center text-tech-slate mt-8 italic">
-          * You can replace the placeholder patent titles with official patent links or PDFs.
-        </p>
       </div>
     </section>
   );

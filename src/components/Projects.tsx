@@ -79,38 +79,38 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
 const Projects = () => {
   const projects: Project[] = [
     {
-      title: "Indian Sign Language to Text & Speech Converter",
-      description: "An AI-powered application that translates Indian Sign Language gestures into text and speech in real-time.",
+      title: "AI Sign Language Translator",
+      description: "An application that translates sign language into text and speech in real-time using computer vision.",
       image: "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-      tags: ["Computer Vision", "AI/ML", "Accessibility", "Python"],
+      tags: ["Computer Vision", "TensorFlow", "Accessibility", "Python"],
       githubLink: "https://github.com/finefigo",
     },
     {
-      title: "AI Smart Newsletter Tool Platform",
-      description: "A platform that uses generative AI to create personalized news digests and newsletters based on user preferences.",
-      image: "https://images.unsplash.com/photo-1526378787940-576a539ba69d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80",
-      tags: ["Generative AI", "NLP", "Web App", "React"],
+      title: "AR Navigation App",
+      description: "An augmented reality application that overlays navigation information on the real world through your smartphone camera.",
+      image: "https://images.unsplash.com/photo-1526378722484-bd91ca387e72?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80",
+      tags: ["AR", "Unity", "Mobile App", "Geolocation"],
       githubLink: "https://github.com/finefigo",
     },
     {
-      title: "Personal Portfolio Website",
-      description: "A modern, responsive portfolio website showcasing my skills, projects, and achievements.",
+      title: "Smart News Digest",
+      description: "AI-powered platform that creates personalized news summaries based on user interests and reading patterns.",
       image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1055&q=80",
-      tags: ["React", "Tailwind CSS", "TypeScript", "Responsive Design"],
+      tags: ["NLP", "Machine Learning", "React", "Node.js"],
       githubLink: "https://github.com/finefigo",
     },
     {
-      title: "LMS (Learning Management System) App",
-      description: "A comprehensive learning management system for educational institutions with course management and progress tracking.",
+      title: "Virtual Study Assistant",
+      description: "An AI-powered educational tool that helps students with personalized learning paths and interactive sessions.",
       image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1052&q=80",
-      tags: ["EdTech", "React Native", "Firebase", "Mobile App"],
+      tags: ["EdTech", "AI/ML", "React Native", "Firebase"],
       githubLink: "https://github.com/finefigo",
     },
     {
-      title: "Weather App with Clean UI/UX",
-      description: "A weather application with a focus on beautiful, intuitive user interface and real-time weather data.",
+      title: "3D Data Visualization Platform",
+      description: "Interactive platform for visualizing complex datasets in immersive 3D environments with AR capabilities.",
       image: "https://images.unsplash.com/photo-1580193769210-b8d1c049a7d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80",
-      tags: ["React", "API Integration", "UI/UX", "Mobile-first"],
+      tags: ["Data Viz", "Three.js", "WebGL", "D3.js"],
       githubLink: "https://github.com/finefigo",
     }
   ];
@@ -122,7 +122,7 @@ const Projects = () => {
       <div className="absolute bottom-0 left-20 w-60 h-60 bg-blue-500/5 rounded-full filter blur-3xl"></div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="section-heading section-heading-03">Projects I've Built</h2>
+        <h2 className="section-heading section-heading-03">Featured Projects</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (

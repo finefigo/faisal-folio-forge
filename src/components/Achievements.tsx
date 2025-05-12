@@ -30,18 +30,18 @@ const Achievements = () => {
   const achievements = [
     {
       icon: Trophy,
-      title: "Winner of TechFest 2K23 & 2K25",
-      description: "Recognized for technical innovation and problem-solving at JIS College of Engineering's flagship tech event."
-    },
-    {
-      icon: Star,
-      title: "Holder of 4 patents",
-      description: "Filed multiple patents through my college, demonstrating innovation and technical expertise."
+      title: "Winner of TechFest 2023",
+      description: "First place in the national AI innovation competition for developing an assistive technology solution."
     },
     {
       icon: Award,
-      title: "Skilled in Prompt Engineering",
-      description: "Developed expertise in crafting effective prompts for AI systems, enabling powerful applications of generative AI."
+      title: "Google Developer Expert",
+      description: "Recognized as a Google Developer Expert in Machine Learning and Artificial Intelligence."
+    },
+    {
+      icon: Star,
+      title: "Kaggle Competition Master",
+      description: "Top 1% ranking in multiple Kaggle competitions focused on computer vision and NLP challenges."
     }
   ];
 
@@ -52,7 +52,7 @@ const Achievements = () => {
       <div className="absolute bottom-10 right-10 w-60 h-60 bg-tech-teal/5 rounded-full filter blur-3xl"></div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="section-heading section-heading-05">Achievements & Experience</h2>
+        <h2 className="section-heading section-heading-05">Achievements & Recognition</h2>
         
         <div className="space-y-6">
           {achievements.map((achievement, index) => (
