@@ -2,27 +2,35 @@
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const Hero = () => {
   const [typedText, setTypedText] = useState("");
-  const textToType = "AI/ML Engineer & AR Developer";
+  const textToType = "Engineering Student";
   const [showCursor, setShowCursor] = useState(true);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
   
   // Refs for animation elements
   const headingRef = useRef<HTMLHeadingElement>(null);
   const subheadingRef = useRef<HTMLHeadingElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
   const heroSectionRef = useRef<HTMLElement>(null);
   
   useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    
     if (typedText.length < textToType.length) {
-      const timeout = setTimeout(() => {
+      timeout = setTimeout(() => {
         setTypedText(textToType.substring(0, typedText.length + 1));
       }, 100);
-      return () => clearTimeout(timeout);
+    } else {
+      setIsTypingComplete(true);
     }
-  }, [typedText]);
+    
+    return () => clearTimeout(timeout);
+  }, [typedText, textToType]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -58,6 +66,9 @@ const Hero = () => {
       if (ctaRef.current) {
         ctaRef.current.classList.add('animate-fade-in');
       }
+      if (profileRef.current) {
+        profileRef.current.classList.add('animate-fade-in');
+      }
     };
     
     // Small timeout to ensure elements are in the DOM
@@ -67,9 +78,9 @@ const Hero = () => {
   return (
     <section 
       ref={heroSectionRef}
-      className="min-h-screen flex items-center justify-center py-20 relative overflow-hidden"
+      className="min-h-[80vh] flex items-center justify-center py-12 relative overflow-hidden"
     >
-      {/* Background elements */}
+      {/* Background elements with enhanced animations */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5 z-0"></div>
       
       {/* Enhanced floating orbs with stronger parallax effect */}
@@ -90,64 +101,81 @@ const Hero = () => {
       
       {/* Hero content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          <div 
-            className="text-tech-teal font-mono text-lg mb-4 animate-fadeIn opacity-0" 
-            style={{ animationDelay: "0.2s" }}
-          >
-            Hello, my name is
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          {/* Text content */}
+          <div className="max-w-2xl text-center md:text-left">
+            <div 
+              className="text-tech-teal font-mono text-lg mb-4 animate-fadeIn opacity-0" 
+              style={{ animationDelay: "0.2s" }}
+            >
+              Hello, my name is
+            </div>
+            
+            <h1 
+              ref={headingRef}
+              className="text-4xl sm:text-5xl md:text-6xl font-bold mb-3 animate-fadeIn opacity-0" 
+              style={{ animationDelay: "0.4s" }}
+            >
+              Faisal Imtiaz
+            </h1>
+            
+            <h2 
+              ref={subheadingRef}
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-tech-slate mb-4 flex items-center justify-center md:justify-start animate-fadeIn opacity-0" 
+              style={{ animationDelay: "0.6s" }}
+            >
+              <span className="gradient-text">{typedText}</span>
+              <span className={`ml-1 inline-block h-6 w-2 sm:h-8 sm:w-3 md:h-10 md:w-3 bg-tech-teal ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}></span>
+            </h2>
+            
+            <p 
+              className="text-tech-slate text-lg mb-8 mx-auto md:mx-0 max-w-xl animate-fadeIn opacity-0 text-balance" 
+              style={{ animationDelay: "0.8s" }}
+            >
+              I'm a 2nd-year engineering student passionate about solving problems through AI/ML and AR development. Currently focused on building innovative, user-centered tech solutions.
+            </p>
+            
+            <div 
+              ref={ctaRef}
+              className="animate-fadeIn opacity-0 flex flex-wrap justify-center md:justify-start gap-4 sm:gap-6" 
+              style={{ animationDelay: "1s" }}
+            >
+              <Button asChild className="btn-primary hover:scale-105 shadow-lg shadow-tech-teal/20">
+                <a href="#projects">
+                  Explore My Projects 
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </Button>
+              <Button asChild className="btn-outline hover:scale-105">
+                <a href="#contact">
+                  Contact Me
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </Button>
+            </div>
           </div>
           
-          <h1 
-            ref={headingRef}
-            className="text-5xl sm:text-6xl md:text-7xl font-bold mb-4 animate-fadeIn opacity-0" 
-            style={{ animationDelay: "0.4s" }}
-          >
-            Faisal Imtiaz
-          </h1>
-          
-          <h2 
-            ref={subheadingRef}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-tech-slate mb-6 flex justify-center animate-fadeIn opacity-0" 
-            style={{ animationDelay: "0.6s" }}
-          >
-            <span className="gradient-text">{typedText}</span>
-            <span className={`ml-1 inline-block h-8 w-3 sm:h-10 sm:w-4 md:h-12 md:w-4 bg-tech-teal ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}></span>
-          </h2>
-          
-          <p 
-            className="text-tech-slate text-lg md:text-xl mb-10 mx-auto max-w-2xl animate-fadeIn opacity-0 text-balance" 
-            style={{ animationDelay: "0.8s" }}
-          >
-            I'm a 2nd-year engineering student passionate about solving problems through AI/ML and AR development. Currently focused on building innovative, user-centered tech solutions.
-          </p>
-          
+          {/* Profile picture with animations */}
           <div 
-            ref={ctaRef}
-            className="animate-fadeIn opacity-0 flex flex-wrap justify-center gap-4 sm:gap-6" 
-            style={{ animationDelay: "1s" }}
+            ref={profileRef}
+            className="opacity-0 animate-fadeIn" 
+            style={{ animationDelay: "1.2s" }}
           >
-            <Button asChild className="btn-primary hover:scale-105 shadow-lg shadow-tech-teal/20">
-              <a href="#projects">
-                Explore My Projects 
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </Button>
-            <Button asChild className="btn-outline hover:scale-105">
-              <a href="#contact">
-                Contact Me
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </Button>
-          </div>
-          
-          {/* Scroll indicator */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-70 animate-bounce">
-            <div className="flex flex-col items-center">
-              <div className="w-8 h-12 rounded-full border-2 border-tech-teal flex justify-center items-start p-1">
-                <div className="w-1 h-3 bg-tech-teal rounded-full animate-bounce"></div>
+            <div className="relative">
+              {/* Decorative ring */}
+              <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-tech-teal via-tech-teal/50 to-blue-500/30 opacity-70 blur-sm animate-rotate"></div>
+              
+              {/* Profile image */}
+              <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-full overflow-hidden border-4 border-tech-navy-light hover-glow transition-all duration-500 transform hover:scale-105">
+                <Avatar className="w-full h-full">
+                  <AvatarImage src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952" alt="Faisal Imtiaz" className="object-cover" />
+                  <AvatarFallback className="bg-tech-navy text-tech-teal text-4xl">FI</AvatarFallback>
+                </Avatar>
               </div>
-              <span className="text-tech-teal text-xs mt-2 font-mono">SCROLL</span>
+              
+              {/* Decorative elements */}
+              <div className="absolute -top-6 -right-6 w-12 h-12 rounded-full bg-tech-teal/10 animate-float"></div>
+              <div className="absolute -bottom-8 -left-4 w-16 h-16 rounded-full bg-blue-500/10 animate-float-delay"></div>
             </div>
           </div>
         </div>
