@@ -1,6 +1,6 @@
 
 import { Card, CardContent } from "@/components/ui/card";
-import { FileText } from "lucide-react";
+import { ArrowRight, FileText } from "lucide-react";
 
 const Patents = () => {
   const patents = [
