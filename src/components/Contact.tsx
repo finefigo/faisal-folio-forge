@@ -87,7 +87,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     placeholder="Your name"
-                    className="bg-tech-navy border-tech-navy-light focus:border-tech-teal text-tech-light placeholder:text-tech-slate/50"
+                    className="glass-card border-tech-navy-light focus:border-tech-teal text-tech-light placeholder:text-tech-slate/50"
                   />
                 </div>
                 <div>
@@ -102,7 +102,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     placeholder="your@email.com"
-                    className="bg-tech-navy border-tech-navy-light focus:border-tech-teal text-tech-light placeholder:text-tech-slate/50"
+                    className="glass-card border-tech-navy-light focus:border-tech-teal text-tech-light placeholder:text-tech-slate/50"
                   />
                 </div>
                 <div>
@@ -116,13 +116,13 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     placeholder="Your message"
-                    className="h-32 bg-tech-navy border-tech-navy-light focus:border-tech-teal text-tech-light placeholder:text-tech-slate/50"
+                    className="h-32 glass-card border-tech-navy-light focus:border-tech-teal text-tech-light placeholder:text-tech-slate/50"
                   />
                 </div>
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-tech-teal text-tech-blue hover:bg-tech-teal/90 font-medium"
+                  className="btn-primary w-full"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
@@ -130,7 +130,7 @@ const Contact = () => {
             </div>
 
             {/* Contact Info */}
-            <div className="bg-tech-navy p-8 rounded-lg border border-tech-navy-light flex flex-col justify-between">
+            <div className="glass-card p-8 rounded-xl gradient-border flex flex-col justify-between">
               <div>
                 <h3 className="text-2xl font-semibold mb-4 text-tech-light">
                   Contact Information
@@ -162,7 +162,7 @@ const Contact = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={link.name}
-                        className="w-10 h-10 rounded-full bg-tech-navy-light flex items-center justify-center text-tech-light hover:bg-tech-teal hover:text-tech-blue transition-colors duration-300"
+                        className="w-10 h-10 rounded-full glass-card flex items-center justify-center text-tech-light hover:bg-tech-teal hover:text-tech-blue transition-colors duration-300"
                       >
                         <link.icon className="w-5 h-5" />
                       </a>

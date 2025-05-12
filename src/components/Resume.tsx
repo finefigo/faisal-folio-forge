@@ -14,7 +14,7 @@ const Resume = () => {
       ></div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="section-heading section-heading-04">Resume</h2>
+        <h2 className="section-heading section-heading-06">Resume</h2>
         
         <div className="flex flex-col md:flex-row items-center justify-between gap-10 mt-8">
           <div className="md:w-1/2">
@@ -29,7 +29,7 @@ const Resume = () => {
             <div className="flex flex-wrap gap-6">
               <Button 
                 asChild
-                className="group flex items-center gap-2 bg-tech-teal text-tech-blue hover:bg-tech-teal/90 rounded px-8 py-7 font-mono text-lg md:text-xl hover:scale-110 transition-all duration-300 shadow-lg shadow-tech-teal/20"
+                className="btn-primary group"
               >
                 <a href="/Faisal_Imtiaz_Resume.pdf" target="_blank" rel="noopener noreferrer">
                   <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" />
@@ -40,8 +40,7 @@ const Resume = () => {
           </div>
           
           <div className="md:w-1/2 mt-8 md:mt-0">
-            <div className="resume-preview border-2 border-tech-teal/30 rounded-lg p-4 bg-tech-navy relative">
-              <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+            <div className="glass-card p-6 gradient-border">
               <div className="relative z-10">
                 <h4 className="text-xl font-bold text-tech-teal mb-4">Resume Highlights</h4>
                 <ul className="space-y-3 text-tech-slate">

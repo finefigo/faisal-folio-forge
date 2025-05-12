@@ -13,10 +13,10 @@ const AchievementCard = ({
   index: number;
 }) => (
   <div 
-    className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-6 rounded-lg border border-tech-navy-light bg-tech-navy hover-card hover-glow"
+    className="glass-card flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-6 hover-card hover-glow"
     style={{ animationDelay: `${index * 0.1}s` }}
   >
-    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-tech-teal/10 text-tech-teal">
+    <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-tech-teal/10 text-tech-teal">
       <Icon size={24} />
     </div>
     <div>

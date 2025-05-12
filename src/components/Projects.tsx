@@ -16,11 +16,11 @@ interface Project {
 const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
   return (
     <Card 
-      className="overflow-hidden bg-tech-navy border border-tech-navy-light hover-card hover-glow"
+      className="glass-card overflow-hidden hover-card hover-glow"
       style={{ animationDelay: `${index * 0.1}s` }}
     >
       <div className="relative h-48 overflow-hidden group">
-        <div className="absolute inset-0 bg-tech-blue/50 group-hover:bg-tech-blue/30 transition-all duration-300 z-10"></div>
+        <div className="absolute inset-0 bg-tech-blue/60 group-hover:bg-tech-blue/40 transition-all duration-300 z-10"></div>
         <img
           src={project.image}
           alt={project.title}
@@ -37,7 +37,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
           {project.tags.map((tag, idx) => (
             <span 
               key={idx} 
-              className="text-tech-teal text-xs font-mono bg-tech-teal/10 px-2 py-1 rounded"
+              className="text-tech-teal text-xs font-mono bg-tech-teal/10 px-2 py-1 rounded-full"
             >
               {tag}
             </span>
@@ -122,7 +122,7 @@ const Projects = () => {
       <div className="absolute bottom-0 left-20 w-60 h-60 bg-blue-500/5 rounded-full filter blur-3xl"></div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="section-heading section-heading-03 animate-on-scroll">Projects I've Built</h2>
+        <h2 className="section-heading section-heading-03">Projects I've Built</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
@@ -133,7 +133,7 @@ const Projects = () => {
         <div className="mt-12 text-center">
           <Button 
             asChild
-            className="bg-transparent hover:bg-tech-teal/10 text-tech-teal border border-tech-teal rounded px-8 py-4 font-mono hover:scale-105 transition-all duration-300 group"
+            className="btn-outline group"
           >
             <a 
               href="https://github.com/finefigo" 

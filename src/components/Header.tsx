@@ -37,8 +37,8 @@ const Header = () => {
     <header
       className={`fixed w-full top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-tech-blue bg-opacity-90 backdrop-blur shadow-lg py-4"
-          : "py-6"
+          ? "bg-tech-blue/90 backdrop-blur-sm shadow-lg py-3"
+          : "py-5"
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,8 +53,8 @@ const Header = () => {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <ul className="flex space-x-8 font-mono text-sm">
+          <div className="hidden md:flex items-center space-x-6">
+            <ul className="flex space-x-6 font-medium text-sm">
               {navLinks.map((link, index) => (
                 <li key={link.name}>
                   <a href={link.url} className="nav-link">
@@ -66,7 +66,7 @@ const Header = () => {
             </ul>
             <Button
               asChild
-              className="border border-tech-teal text-tech-teal hover:bg-tech-teal/10 bg-transparent rounded px-4 py-2 text-sm font-mono"
+              className="btn-outline text-sm"
             >
               <a
                 href="/Faisal_Imtiaz_Resume.pdf"
@@ -97,9 +97,9 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden fixed inset-0 top-[72px] bg-tech-navy z-40">
+          <div className="md:hidden fixed inset-0 top-[72px] bg-tech-blue/95 backdrop-blur-md z-40">
             <div className="flex flex-col items-center justify-center h-full">
-              <ul className="flex flex-col space-y-6 text-center font-mono text-lg">
+              <ul className="flex flex-col space-y-6 text-center font-medium text-lg">
                 {navLinks.map((link, index) => (
                   <li key={link.name} className="nav-item">
                     <a
@@ -117,7 +117,7 @@ const Header = () => {
               </ul>
               <Button
                 asChild
-                className="mt-8 border border-tech-teal text-tech-teal hover:bg-tech-teal/10 bg-transparent rounded px-6 py-3 text-base font-mono"
+                className="btn-outline mt-8"
               >
                 <a
                   href="/Faisal_Imtiaz_Resume.pdf"
