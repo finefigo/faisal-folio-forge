@@ -1,11 +1,14 @@
+
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
+
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
@@ -34,6 +37,7 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   const navLinks = [{
     name: "About",
     url: "#about"
@@ -56,6 +60,7 @@ const Header = () => {
     name: "Contact",
     url: "#contact"
   }];
+
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault();
     const section = document.getElementById(sectionId);
@@ -69,6 +74,7 @@ const Header = () => {
       setIsMenuOpen(false);
     }
   };
+
   return <motion.header initial={{
     y: -100
   }} animate={{
@@ -83,7 +89,7 @@ const Header = () => {
           <motion.div className="flex items-center" whileHover={{
           scale: 1.05
         }}>
-            <a href="#" className="text-tech-teal font-mono text-xl font-semibold"><Faisal Imtiaz /></a>
+            <a href="#" className="text-tech-teal font-mono text-xl font-semibold">Faisal Imtiaz</a>
           </motion.div>
 
           {/* Desktop Menu */}
@@ -195,4 +201,5 @@ const Header = () => {
       </div>
     </motion.header>;
 };
+
 export default Header;
