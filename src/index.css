@@ -53,10 +53,28 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-tech-blue text-tech-light antialiased font-poppins;
     font-feature-settings: "rlig" 1, "calt" 1;
-    scroll-behavior: smooth;
+    cursor: none;
+  }
+
+  /* Hide default cursor on interactive elements for desktop */
+  @media (min-width: 768px) {
+    a, button, input, textarea, [role="button"] {
+      cursor: none;
+    }
+  }
+
+  /* Show default cursor on mobile */
+  @media (max-width: 767px) {
+    body {
+      cursor: auto;
+    }
   }
 
   /* Custom Scrollbar */
@@ -171,6 +189,19 @@
   .glass-card {
     @apply bg-tech-navy/50 backdrop-blur-sm border border-tech-navy-light rounded-xl overflow-hidden;
   }
+
+  /* Form field animations */
+  .form-field {
+    @apply relative;
+  }
+
+  .form-field-label {
+    @apply absolute transition-all duration-300 pointer-events-none;
+  }
+
+  .form-field-label.active {
+    @apply text-xs -translate-y-3 text-tech-teal;
+  }
 }
 
 @layer utilities {
@@ -245,6 +276,25 @@
     }
   }
   
+  @keyframes fly-plane {
+    0% {
+      transform: translate(0, 0) rotate(0);
+      opacity: 1;
+    }
+    30% {
+      transform: translate(5px, -5px) rotate(10deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(40px, -40px) rotate(20deg);
+      opacity: 0;
+    }
+  }
+
+  .animate-fly-plane {
+    animation: fly-plane 1.2s forwards ease-out;
+  }
+  
   .animate-float {
     animation: float 15s ease-in-out infinite;
   }
@@ -298,18 +348,6 @@
     @apply transition-shadow duration-300 hover:shadow-lg hover:shadow-tech-teal/20;
   }
 
-  .animate-on-scroll {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
-  
-  .animate-on-scroll.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* New utility classes for Behance style */
   .text-balance {
     text-wrap: balance;
   }
