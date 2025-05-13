@@ -6,26 +6,51 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { motion } from "framer-motion";
 
 const Hero = () => {
-  const [activeTitle, setActiveTitle] = useState(0);
+  const [typedText, setTypedText] = useState("");
+  const [titleIndex, setTitleIndex] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
+  const [isTyping, setIsTyping] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [mousePosition, setMousePosition] = useState({
     x: 0,
     y: 0
   });
   const titles = ["Engineering Student", "AI Developer", "System Design Learner", "Hackathon Finalist"];
-  
+  const currentTitle = titles[titleIndex];
+
   // Refs for animation elements
   const heroSectionRef = useRef<HTMLElement>(null);
 
-  // Typewriter animation timer
+  // Typewriter effect
   useEffect(() => {
-    const titleDuration = 3000; // Each title shows for 3 seconds
-    const interval = setInterval(() => {
-      setActiveTitle((prev) => (prev + 1) % titles.length);
-    }, titleDuration);
-    
-    return () => clearInterval(interval);
-  }, [titles.length]);
+    const typingSpeed = isDeleting ? 50 : 100;
+    const delayBetweenTitles = 2000;
+    if (isTyping) {
+      if (typedText.length < currentTitle.length && !isDeleting) {
+        // Typing
+        const timeout = setTimeout(() => {
+          setTypedText(currentTitle.substring(0, typedText.length + 1));
+        }, typingSpeed);
+        return () => clearTimeout(timeout);
+      } else if (!isDeleting) {
+        // Pause at end of word
+        const timeout = setTimeout(() => {
+          setIsDeleting(true);
+        }, delayBetweenTitles);
+        return () => clearTimeout(timeout);
+      } else if (typedText.length > 0 && isDeleting) {
+        // Deleting
+        const timeout = setTimeout(() => {
+          setTypedText(currentTitle.substring(0, typedText.length - 1));
+        }, typingSpeed);
+        return () => clearTimeout(timeout);
+      } else {
+        // Change to next title
+        setIsDeleting(false);
+        setTitleIndex(prevIndex => (prevIndex + 1) % titles.length);
+      }
+    }
+  }, [typedText, isDeleting, isTyping, currentTitle, titleIndex]);
 
   // Blinking cursor effect
   useEffect(() => {
@@ -85,7 +110,7 @@ const Hero = () => {
   return (
     <section 
       ref={heroSectionRef} 
-      className="min-h-[95vh] flex items-center justify-center py-12 md:py-16 pt-32 md:pt-32 pb-32 md:pb-28 relative overflow-hidden"
+      className="min-h-[95vh] flex items-center justify-center py-12 md:py-16 pt-28 md:pt-24 pb-24 md:pb-20 relative overflow-hidden"
       id="hero"
     >
       {/* Animated background elements */}
@@ -160,26 +185,17 @@ const Hero = () => {
               Hello, my name is
             </motion.div>
             
-            <motion.h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-3" variants={itemVariants}>
+            <motion.h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3" variants={itemVariants}>
               Faisal Imtiaz
             </motion.h1>
             
             <motion.h2 
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-tech-slate mb-6 flex items-center justify-center md:justify-start h-[1.5em] sm:h-[1.5em] md:h-[1.5em]" 
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-tech-slate mb-4 flex items-center justify-center md:justify-start" 
               variants={itemVariants}
             >
-              <div className="typewriter-container">
-                {titles.map((title, index) => (
-                  <span
-                    key={index}
-                    className={`typewriter-text gradient-text will-change-transform ${index === activeTitle ? 'active' : ''}`}
-                  >
-                    {title}
-                  </span>
-                ))}
-              </div>
+              <span className="gradient-text">{typedText}</span>
               <span 
-                className={`ml-1 inline-block h-5 w-2 sm:h-6 sm:w-2 md:h-8 md:w-2 lg:h-10 lg:w-3 bg-tech-teal ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300 will-change-opacity`}
+                className={`ml-1 inline-block h-5 w-2 sm:h-6 sm:w-2 md:h-8 md:w-2 lg:h-10 lg:w-3 bg-tech-teal ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
               ></span>
             </motion.h2>
             
