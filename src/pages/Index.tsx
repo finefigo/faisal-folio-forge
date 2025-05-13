@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
+import { useIsMobile } from '@/hooks/use-mobile'; 
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import About from '../components/About';
@@ -16,14 +17,18 @@ const Index = () => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [cursorVariant, setCursorVariant] = useState("default");
   const { scrollYProgress } = useScroll();
+  const isMobile = useIsMobile();
+  
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
 
-  // Custom cursor
+  // Custom cursor for desktop only
   useEffect(() => {
+    if (isMobile) return;
+    
     const handleMouseMove = (e: MouseEvent) => {
       setCursorPosition({ x: e.clientX, y: e.clientY });
     };
@@ -54,7 +59,7 @@ const Index = () => {
       window.removeEventListener('mouseup', handleMouseUp);
       window.removeEventListener('mouseover', handleMouseOver);
     };
-  }, []);
+  }, [isMobile]);
 
   // Smooth scrolling for anchor links
   useEffect(() => {
@@ -72,15 +77,17 @@ const Index = () => {
       
       e.preventDefault();
       
+      const headerOffset = isMobile ? 70 : 100;
+      
       window.scrollTo({
         behavior: 'smooth',
-        top: element.getBoundingClientRect().top + window.scrollY - 100,
+        top: element.getBoundingClientRect().top + window.scrollY - headerOffset,
       });
     };
 
     document.addEventListener('click', handleAnchorClick);
     return () => document.removeEventListener('click', handleAnchorClick);
-  }, []);
+  }, [isMobile]);
 
   const cursorVariants = {
     default: {
@@ -110,20 +117,22 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-tech-blue antialiased relative font-poppins">
+    <div className="min-h-screen bg-tech-blue antialiased relative font-poppins overflow-hidden">
       {/* Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-tech-teal z-[999]"
         style={{ scaleX, transformOrigin: '0%' }}
       />
       
-      {/* Custom Cursor */}
-      <motion.div
-        className="fixed top-0 left-0 rounded-full pointer-events-none z-[999] hidden md:block"
-        variants={cursorVariants}
-        animate={cursorVariant}
-        transition={{ type: "spring", stiffness: 500, damping: 28 }}
-      />
+      {/* Custom Cursor - desktop only */}
+      {!isMobile && (
+        <motion.div
+          className="fixed top-0 left-0 rounded-full pointer-events-none z-[999] hidden md:block"
+          variants={cursorVariants}
+          animate={cursorVariant}
+          transition={{ type: "spring", stiffness: 500, damping: 28 }}
+        />
+      )}
       
       {/* Background elements */}
       <div className="fixed inset-0 z-0">
@@ -135,9 +144,9 @@ const Index = () => {
           <div className="absolute bottom-40 left-40 w-80 h-80 bg-blue-600 opacity-5 rounded-full blur-3xl"></div>
         </div>
         
-        {/* Floating particles */}
+        {/* Floating particles - reduced for mobile performance */}
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(10)].map((_, i) => (
+          {[...Array(isMobile ? 5 : 10)].map((_, i) => (
             <motion.div
               key={i}
               className="absolute rounded-full bg-tech-teal/10"

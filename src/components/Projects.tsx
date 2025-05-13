@@ -61,7 +61,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
                 <Button 
                   variant="ghost" 
                   size="sm"
-                  className="hover:text-tech-teal hover:bg-tech-teal/10 group"
+                  className="hover:text-tech-teal hover:bg-tech-teal/10 group h-10"
                   asChild
                 >
                   <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="flex items-center">
@@ -76,7 +76,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
                 <Button 
                   variant="ghost" 
                   size="sm"
-                  className="hover:text-tech-teal hover:bg-tech-teal/10 group"
+                  className="hover:text-tech-teal hover:bg-tech-teal/10 group h-10"
                   asChild
                 >
                   <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="flex items-center">
@@ -208,13 +208,13 @@ const Projects = () => {
         >
           <h2 className="section-heading section-heading-03">Featured Projects</h2>
           
-          {/* Filter categories */}
-          <div className="flex flex-wrap justify-center gap-3 mb-10">
+          {/* Filter categories - Optimized for mobile */}
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-10 px-2">
             {categories.map((category) => (
               <motion.button
                 key={category}
                 onClick={() => handleFilterClick(category)}
-                className={`px-4 py-2 rounded-full text-sm transition-all duration-300 ${
+                className={`px-3 py-2 rounded-full text-sm transition-all duration-300 mb-2 ${
                   activeFilter === category
                     ? "bg-tech-teal text-tech-blue font-medium"
                     : "bg-tech-navy-light/50 text-tech-slate hover:bg-tech-navy-light"
@@ -227,8 +227,9 @@ const Projects = () => {
             ))}
           </div>
           
+          {/* Responsive grid for projects */}
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             layout
           >
             {filteredProjects.map((project, index) => (
@@ -244,7 +245,7 @@ const Projects = () => {
           >
             <Button 
               asChild
-              className="btn-outline group"
+              className="btn-outline group min-h-[44px]"
             >
               <a 
                 href="https://github.com/finefigo" 
