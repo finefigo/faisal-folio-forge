@@ -1,8 +1,7 @@
 
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Code, Laptop, Bot, Mobile, ArrowRight } from "lucide-react";
-import { C, Python, Kotlin, Xml, JetpackCompose, Tensorflow, Unity, VibeCoding, Ai, Ml, Ar } from "lucide-react";
+import { Code, Laptop, Bot, Smartphone, ArrowRight, Asterisk, FileCode, Braces, Package, Settings, Cpu, Layers, Paintbrush, Globe } from "lucide-react";
 
 // Custom Skill Badge component
 const SkillBadge = ({ icon: Icon, label }: { icon: any; label: string }) => (
@@ -37,31 +36,31 @@ const Skills = () => {
       title: "Languages",
       icon: Code,
       skills: [
-        { icon: C, label: "C" },
-        { icon: Python, label: "Python" },
-        { icon: Kotlin, label: "Kotlin" },
-        { icon: Xml, label: "XML" }
+        { icon: Braces, label: "C" },
+        { icon: FileCode, label: "Python" },
+        { icon: Code, label: "Kotlin" },
+        { icon: FileCode, label: "XML" }
       ]
     },
     {
       title: "Frameworks & Tools",
       icon: Laptop,
       skills: [
-        { icon: JetpackCompose, label: "Jetpack Compose" },
-        { icon: Tensorflow, label: "TensorFlow" },
-        { icon: Unity, label: "Unity" },
-        { icon: VibeCoding, label: "Vibe Coding" }
+        { icon: Layers, label: "Jetpack Compose" },
+        { icon: Cpu, label: "TensorFlow" },
+        { icon: Package, label: "Unity" },
+        { icon: Settings, label: "Vibe Coding" }
       ]
     },
     {
       title: "Domains",
       icon: Bot,
       skills: [
-        { icon: Mobile, label: "Mobile App Dev" },
+        { icon: Smartphone, label: "Mobile App Dev" },
         { icon: Bot, label: "Prompt Engineering" },
-        { icon: Ai, label: "Generative AI" },
-        { icon: Ar, label: "AR Development" },
-        { icon: Ml, label: "AI/ML" }
+        { icon: Paintbrush, label: "Generative AI" },
+        { icon: Globe, label: "AR Development" },
+        { icon: Cpu, label: "AI/ML" }
       ]
     }
   ];
