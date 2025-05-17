@@ -11,20 +11,22 @@ const About = () => {
           <div className="lg:w-3/5">
             <div className="prose prose-invert max-w-none">
               <p className="text-tech-slate mb-4 text-lg">
-                I'm a 2nd-year engineering student at <span className="highlight">JIS College of Engineering</span> with 
-                a deep passion for AI/ML, AR development, and building impactful tech solutions.
+                Hi, I'm Faisal Imtiaz — a 2nd-year engineering student at <span className="highlight">JIS College of Engineering</span> with 
+                a passion for building smart, useful technology.
               </p>
               
               <p className="text-tech-slate mb-4 text-lg">
-                I love combining <span className="highlight">Generative AI, design thinking,</span> and 
-                <span className="highlight"> real-time technologies</span> to create user-focused experiences 
-                across web and mobile platforms.
+                I specialize in mobile app frontend design using <span className="highlight">XML</span> and 
+                <span className="highlight"> Jetpack Compose</span>. I'm also exploring AI/ML using 
+                <span className="highlight"> TensorFlow</span>, diving into AR development with 
+                <span className="highlight"> Unity</span>, and love solving real-world problems using 
+                <span className="highlight"> Generative AI</span> and prompt engineering.
               </p>
               
               <p className="text-tech-slate mb-6 text-lg">
-                What drives me is applying AI/ML and modern tech to solve real-world problems—especially in 
-                <span className="highlight"> accessibility, education, and daily productivity</span>. I'm constantly 
-                learning and excited by opportunities where I can collaborate, innovate, and make a real impact.
+                I enjoy using tools like <span className="highlight">Vibe Coding</span> to rapidly prototype ideas and bring them to life. 
+                My focus is on creating <span className="highlight">accessible, real-time, and user-centric</span> tech that 
+                actually makes an impact.
               </p>
               
               <div className="mt-8">
@@ -33,9 +35,9 @@ const About = () => {
                 </h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-tech-slate font-mono text-sm mt-4">
                   {[
-                    "Python", "TensorFlow", "PyTorch",
-                    "React", "Next.js", "AR/VR",
-                    "Prompt Engineering", "Computer Vision", "Generative AI"
+                    "Kotlin", "Python", "TensorFlow",
+                    "XML", "Jetpack Compose", "AR/VR",
+                    "Prompt Engineering", "Mobile App Dev", "Generative AI"
                   ].map((tech) => (
                     <div key={tech} className="flex items-center mb-2 bg-tech-navy/80 py-2 px-3 rounded-lg">
                       <span className="text-tech-teal mr-2">▹</span> {tech}

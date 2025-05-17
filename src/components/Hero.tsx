@@ -15,7 +15,8 @@ const Hero = () => {
     x: 0,
     y: 0
   });
-  const titles = ["Engineering Student", "AI Developer", "System Design Learner", "Hackathon Finalist"];
+  // Updated typewriter phrases as requested
+  const titles = ["Engineering Student", "Exploring GenAI", "Crafting Smart Tech Solutions"];
   const currentTitle = titles[titleIndex];
 
   // Refs for animation elements
@@ -185,8 +186,9 @@ const Hero = () => {
               Hello, my name is
             </motion.div>
             
+            {/* Updated title as requested */}
             <motion.h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3" variants={itemVariants}>
-              Faisal Imtiaz
+              Hi, I'm Faisal Imtiaz
             </motion.h1>
             
             <motion.h2 
@@ -200,7 +202,7 @@ const Hero = () => {
             </motion.h2>
             
             <motion.p className="text-tech-slate text-base md:text-lg mb-8 mx-auto md:mx-0 max-w-xl text-balance" variants={itemVariants}>
-              I'm passionate about solving problems through AI/ML and AR development. Currently focused on building innovative, user-centered tech solutions.
+              I'm passionate about solving problems through mobile app development, AI/ML and AR development. Currently focused on building innovative, user-centered tech solutions.
             </motion.p>
             
             <motion.div className="flex flex-wrap justify-center md:justify-start gap-4 sm:gap-6" variants={itemVariants}>
