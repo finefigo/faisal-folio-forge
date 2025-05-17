@@ -84,13 +84,6 @@ const Skills = () => {
             />
           ))}
         </div>
-        
-        <div className="mt-12 text-center">
-          <Badge className="bg-tech-teal/10 text-tech-teal border-tech-teal/30 hover:bg-tech-teal/20 text-sm px-4 py-2">
-            Always learning new technologies
-            <ArrowRight className="ml-2 w-4 h-4" />
-          </Badge>
-        </div>
       </div>
     </section>
   );
