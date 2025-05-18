@@ -171,18 +171,21 @@ const Contact = () => {
                     >
                       {field.label}
                     </motion.label>
-                    <Input
-                      id={field.name}
-                      name={field.name}
-                      type={field.type}
-                      value={formData[field.name as keyof typeof formData]}
-                      onChange={handleChange}
-                      onFocus={() => handleFocus(field.name)}
-                      onBlur={() => handleBlur(field.name)}
-                      required
-                      placeholder={isFocused[field.name as keyof typeof isFocused] ? field.placeholder : ""}
-                      className="glass-card border-tech-navy-light focus:border-tech-teal text-tech-light pt-4"
-                    />
+                    <div className="form-input-wrapper">
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        type={field.type}
+                        value={formData[field.name as keyof typeof formData]}
+                        onChange={handleChange}
+                        onFocus={() => handleFocus(field.name)}
+                        onBlur={() => handleBlur(field.name)}
+                        required
+                        placeholder={isFocused[field.name as keyof typeof isFocused] ? field.placeholder : ""}
+                        className="glass-card form-input-glow border-tech-navy-light focus:border-tech-teal text-tech-light pt-4"
+                      />
+                      <div className="input-glow-effect"></div>
+                    </div>
                   </div>
                 ))}
                 <div className="relative">
@@ -196,17 +199,20 @@ const Contact = () => {
                   >
                     Message
                   </motion.label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    onFocus={() => handleFocus('message')}
-                    onBlur={() => handleBlur('message')}
-                    required
-                    placeholder={isFocused.message ? "Your message" : ""}
-                    className="h-32 glass-card border-tech-navy-light focus:border-tech-teal text-tech-light pt-4"
-                  />
+                  <div className="form-input-wrapper">
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      onFocus={() => handleFocus('message')}
+                      onBlur={() => handleBlur('message')}
+                      required
+                      placeholder={isFocused.message ? "Your message" : ""}
+                      className="h-32 glass-card form-input-glow border-tech-navy-light focus:border-tech-teal text-tech-light pt-4"
+                    />
+                    <div className="input-glow-effect"></div>
+                  </div>
                 </div>
                 <motion.div
                   whileHover={{ scale: 1.02 }}

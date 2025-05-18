@@ -202,17 +202,45 @@
     @apply bg-tech-navy/50 backdrop-blur-sm border border-tech-navy-light rounded-xl overflow-hidden;
   }
 
-  /* Form field animations */
-  .form-field {
-    @apply relative;
+  /* Form input glowing effect */
+  .form-input-wrapper {
+    position: relative;
+    overflow: visible;
   }
 
-  .form-field-label {
-    @apply absolute transition-all duration-300 pointer-events-none;
+  .form-input-glow {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(18, 26, 44, 0.5);
+    transition: all 0.3s ease;
   }
 
-  .form-field-label.active {
-    @apply text-xs -translate-y-3 text-tech-teal;
+  .form-input-glow:focus {
+    box-shadow: 0 0 15px rgba(100, 255, 218, 0.3);
+    border-color: rgba(100, 255, 218, 0.8);
+  }
+
+  .input-glow-effect {
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(45deg, 
+      rgba(100, 255, 218, 0.1), 
+      rgba(100, 255, 218, 0.05),
+      rgba(100, 255, 218, 0.01),
+      rgba(100, 255, 218, 0.05),
+      rgba(100, 255, 218, 0.1)
+    );
+    border-radius: 10px;
+    z-index: 0;
+    opacity: 0;
+    pointer-events: none;
+    filter: blur(8px);
+    transition: opacity 0.3s ease;
+  }
+
+  .form-input-glow:focus + .input-glow-effect,
+  .form-input-glow:hover + .input-glow-effect {
+    opacity: 1;
   }
 
   /* Mobile optimizations */

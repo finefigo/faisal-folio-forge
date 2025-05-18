@@ -46,10 +46,9 @@ const Skills = () => {
       title: "Frameworks & Tools",
       icon: Laptop,
       skills: [
-        { icon: Layers, label: "Jetpack Compose" },
+        { icon: Smartphone, label: "Android Studio" },
         { icon: Cpu, label: "TensorFlow" },
-        { icon: Package, label: "Unity" },
-        { icon: Settings, label: "Vibe Coding" }
+        { icon: Package, label: "Unity" }
       ]
     },
     {
