@@ -99,56 +99,34 @@ const Projects = () => {
 
   const projects: Project[] = [
     {
-      title: "AI Sign Language Translator",
-      description: "An application that translates sign language into text and speech in real-time using computer vision.",
+      title: "Signify-ISL",
+      description: "A powerful, AI-driven communication and educational platform that translates Indian Sign Language (ISL) into text and speech in real-time.",
       image: "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-      tags: ["Computer Vision", "TensorFlow", "Accessibility", "Python"],
-      category: ["AI", "Accessibility"],
-      githubLink: "https://github.com/finefigo",
+      tags: ["AI", "Accessibility", "Computer Vision", "React"],
+      category: ["AI", "Web"],
+      liveLink: "https://signify-isl.vercel.app/",
+      githubLink: "https://github.com/finefigo/signify-isl.git",
     },
     {
-      title: "AR Navigation App",
-      description: "An augmented reality application that overlays navigation information on the real world through your smartphone camera.",
-      image: "https://images.unsplash.com/photo-1526378722484-bd91ca387e72?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80",
-      tags: ["AR", "Unity", "Mobile App", "Geolocation"],
-      category: ["Mobile", "AR"],
-      githubLink: "https://github.com/finefigo",
-    },
-    {
-      title: "Smart News Digest",
-      description: "AI-powered platform that creates personalized news summaries based on user interests and reading patterns.",
-      image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1055&q=80",
-      tags: ["NLP", "Machine Learning", "React", "Node.js"],
-      category: ["Web", "AI"],
-      githubLink: "https://github.com/finefigo",
-    },
-    {
-      title: "Virtual Study Assistant",
-      description: "An AI-powered educational tool that helps students with personalized learning paths and interactive sessions.",
+      title: "Learning-Partner",
+      description: "Student profile and subject management app using XML and Java for efficient academic organization.",
       image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1052&q=80",
-      tags: ["EdTech", "AI/ML", "React Native", "Firebase"],
-      category: ["Mobile", "AI", "EdTech"],
-      githubLink: "https://github.com/finefigo",
+      tags: ["XML", "Java", "Mobile App", "Education"],
+      category: ["Mobile"],
+      githubLink: "https://github.com/finefigo/Learning-Partner.git",
     },
     {
-      title: "3D Data Visualization Platform",
-      description: "Interactive platform for visualizing complex datasets in immersive 3D environments with AR capabilities.",
-      image: "https://images.unsplash.com/photo-1580193769210-b8d1c049a7d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80",
-      tags: ["Data Viz", "Three.js", "WebGL", "D3.js"],
-      category: ["Web", "Data"],
-      githubLink: "https://github.com/finefigo",
+      title: "IEM Hacks 3",
+      description: "A hackathon project with built-in AI to help users with mental health support and resources.",
+      image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1055&q=80",
+      tags: ["Mental Health", "AI", "React", "Node.js"],
+      category: ["Web", "AI"],
+      githubLink: "https://github.com/finefigo/iemhacks3.git",
     },
-    {
-      title: "Blockchain Identity Verification",
-      description: "Secure identity management system using blockchain technology for enhanced privacy and security.",
-      image: "https://images.unsplash.com/photo-1639322537231-2fefa50d5758?ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80",
-      tags: ["Blockchain", "Solidity", "Web3", "Security"],
-      category: ["Blockchain", "Security"],
-      githubLink: "https://github.com/finefigo",
-    }
   ];
 
-  const categories = ["All", "AI", "Web", "Mobile", "AR", "Blockchain", "Data", "EdTech", "Security"];
+  // Updated categories to only include those needed
+  const categories = ["All", "AI", "Web", "Mobile"];
 
   useEffect(() => {
     if (activeFilter === "All") {
