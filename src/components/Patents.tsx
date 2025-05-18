@@ -1,6 +1,6 @@
 
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Window, Car, Brain } from "lucide-react";
+import { ArrowRight, Wind, Car, Brain } from "lucide-react";
 
 const Patents = () => {
   const patents = [
@@ -8,7 +8,7 @@ const Patents = () => {
       title: "Smart Window Film Technology",
       description: "Smart window film harvests solar energy, adjusts opacity, stores power, self-cleans, and supports IoT for efficient energy management.",
       link: "https://drive.google.com/file/d/1ubReFRME83FVjGqmyGPQfYZB9-n6Lec6/view?usp=drivesdk",
-      icon: Window
+      icon: Wind
     },
     {
       title: "AI-powered CTIS Technology",
