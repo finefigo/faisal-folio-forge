@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { motion } from "framer-motion";
+
 const Hero = () => {
   const [typedText, setTypedText] = useState("");
   const [titleIndex, setTitleIndex] = useState(0);
@@ -200,7 +201,7 @@ const Hero = () => {
             ease: "linear"
           }} />
             
-            {/* Profile image */}
+            {/* Updated Profile image with your new image URL */}
             <motion.div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-tech-navy-light hover-glow transition-all duration-500" initial={{
             y: 20,
             opacity: 0
@@ -215,7 +216,7 @@ const Hero = () => {
             }
           }}>
               <Avatar className="w-full h-full">
-                <AvatarImage src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952" alt="Faisal Imtiaz" className="object-cover" />
+                <AvatarImage src="https://i.postimg.cc/qqV5z5Hn/Whats-App-Image-2024-09-28-at-22-24-41-0633665e.jpg" alt="Faisal Imtiaz" className="object-cover" />
                 <AvatarFallback className="bg-tech-navy text-tech-teal text-4xl">FI</AvatarFallback>
               </Avatar>
             </motion.div>
@@ -243,4 +244,5 @@ const Hero = () => {
       </div>
     </section>;
 };
+
 export default Hero;
