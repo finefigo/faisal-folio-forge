@@ -9,7 +9,6 @@ import Skills from '../components/Skills';
 import Projects from '../components/Projects';
 import Patents from '../components/Patents';
 import Achievements from '../components/Achievements';
-import Resume from '../components/Resume';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 
@@ -182,7 +181,6 @@ const Index = () => {
         <Projects />
         <Patents />
         <Achievements />
-        <Resume />
         <Contact />
       </main>
       <Footer />

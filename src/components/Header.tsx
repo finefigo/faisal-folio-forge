@@ -54,9 +54,6 @@ const Header = () => {
     name: "Achievements",
     url: "#achievements"
   }, {
-    name: "Resume",
-    url: "#resume"
-  }, {
     name: "Contact",
     url: "#contact"
   }];
@@ -121,7 +118,7 @@ const Header = () => {
             scale: 0.95
           }}>
               <Button asChild className="btn-outline text-sm">
-                <a href="/Faisal_Imtiaz_Resume.pdf" target="_blank" rel="noopener noreferrer">
+                <a href="https://drive.google.com/file/d/1vHYfO0NDGwzDWsvBlW0i2LUtqJPCBdMU/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">
                   Resume
                 </a>
               </Button>
@@ -200,7 +197,7 @@ const Header = () => {
                   className="btn-outline text-base h-12 px-8"
                 >
                   <a 
-                    href="/Faisal_Imtiaz_Resume.pdf" 
+                    href="https://drive.google.com/file/d/1vHYfO0NDGwzDWsvBlW0i2LUtqJPCBdMU/view?usp=drivesdk" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     onClick={() => setIsMenuOpen(false)}
