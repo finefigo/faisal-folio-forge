@@ -10,44 +10,44 @@ const Header = () => {
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    let ticking = false;
-
     const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const offset = window.scrollY;
+      const offset = window.scrollY;
+      setScrolled(offset > 50);
 
-          // Update header style based on scroll position
-          setScrolled(offset > 50);
-
-          // Update active section based on scroll position with improved detection
-          const sections = document.querySelectorAll("section[id]");
-          let current = "hero";
-          
-          sections.forEach(section => {
-            const sectionId = section.getAttribute("id");
-            if (!sectionId) return;
-            
-            const rect = section.getBoundingClientRect();
-            const sectionTop = rect.top + window.scrollY;
-            const sectionHeight = rect.height;
-            
-            // Check if section is in viewport (with offset for header)
-            if (offset >= sectionTop - 150 && offset < sectionTop + sectionHeight - 150) {
-              current = sectionId;
-            }
-          });
-          
-          setActiveSection(current);
-          ticking = false;
-        });
-        ticking = true;
+      // Simplified active section detection
+      const sections = ["hero", "about", "skills", "projects", "patents", "achievements", "contact"];
+      let current = "hero";
+      
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 200 && rect.bottom >= 200) {
+            current = sectionId;
+            break;
+          }
+        }
       }
+      
+      setActiveSection(current);
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Use passive listener with reduced frequency
+    let timeoutId: number;
+    const throttledScroll = () => {
+      if (timeoutId) return;
+      timeoutId = window.setTimeout(() => {
+        handleScroll();
+        timeoutId = 0;
+      }, 50);
+    };
+
+    window.addEventListener("scroll", throttledScroll, { passive: true });
+    handleScroll(); // Initial call
+    
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", throttledScroll);
+      if (timeoutId) clearTimeout(timeoutId);
     };
   }, []);
 
@@ -74,24 +74,22 @@ const Header = () => {
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault();
     
-    // Close mobile menu if open
-    if (isMenuOpen) {
-      setIsMenuOpen(false);
-    }
+    // Close mobile menu immediately
+    setIsMenuOpen(false);
     
-    const section = document.getElementById(sectionId);
-    if (section) {
-      const headerOffset = 100;
-      const elementPosition = section.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
+    // Set active section immediately for better UX
+    setActiveSection(sectionId);
+    
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerHeight = 80;
+      const elementTop = element.offsetTop - headerHeight;
+      
+      // Use native scrollTo for better performance
       window.scrollTo({
-        top: offsetPosition,
+        top: elementTop,
         behavior: "smooth"
       });
-      
-      // Update active section immediately for better UX
-      setActiveSection(sectionId);
     }
   };
 
@@ -133,7 +131,7 @@ const Header = () => {
                     <a 
                       href={link.url} 
                       onClick={(e) => handleNavClick(e, sectionId)} 
-                      className={`nav-link transition-colors duration-300 hover:text-tech-teal ${
+                      className={`nav-link transition-colors duration-300 hover:text-tech-teal cursor-pointer ${
                         isActive ? "text-tech-teal" : "text-tech-slate"
                       }`}
                     >
@@ -219,7 +217,7 @@ const Header = () => {
                     >
                       <a 
                         href={link.url} 
-                        className={`nav-link py-3 px-4 block rounded-lg transition-colors duration-300 ${
+                        className={`nav-link py-3 px-4 block rounded-lg transition-colors duration-300 cursor-pointer ${
                           isActive 
                             ? "bg-tech-teal/10 text-tech-teal" 
                             : "text-tech-slate hover:text-tech-teal"
