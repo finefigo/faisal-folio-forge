@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { useIsMobile } from '@/hooks/use-mobile'; 
 import Header from '../components/Header';
@@ -24,12 +24,25 @@ const Index = () => {
     restDelta: 0.001
   });
 
-  // Custom cursor for desktop only
+  // Optimized cursor tracking with throttling
+  const updateCursorPosition = useCallback((e: MouseEvent) => {
+    setCursorPosition({ x: e.clientX, y: e.clientY });
+  }, []);
+
+  // Custom cursor for desktop only with optimized event handlers
   useEffect(() => {
     if (isMobile) return;
     
-    const handleMouseMove = (e: MouseEvent) => {
-      setCursorPosition({ x: e.clientX, y: e.clientY });
+    let animationId: number;
+    let lastTime = 0;
+    const throttleDelay = 16; // ~60fps
+
+    const throttledMouseMove = (e: MouseEvent) => {
+      const now = Date.now();
+      if (now - lastTime >= throttleDelay) {
+        updateCursorPosition(e);
+        lastTime = now;
+      }
     };
 
     const handleMouseDown = () => setCursorVariant("click");
@@ -47,20 +60,21 @@ const Index = () => {
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('mousemove', throttledMouseMove, { passive: true });
+    window.addEventListener('mousedown', handleMouseDown, { passive: true });
+    window.addEventListener('mouseup', handleMouseUp, { passive: true });
+    window.addEventListener('mouseover', handleMouseOver, { passive: true });
     
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mousemove', throttledMouseMove);
       window.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mouseup', handleMouseUp);
       window.removeEventListener('mouseover', handleMouseOver);
+      if (animationId) cancelAnimationFrame(animationId);
     };
-  }, [isMobile]);
+  }, [isMobile, updateCursorPosition]);
 
-  // Smooth scrolling for anchor links
+  // Optimized smooth scrolling for anchor links
   useEffect(() => {
     const handleAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -78,16 +92,22 @@ const Index = () => {
       
       const headerOffset = isMobile ? 70 : 100;
       
-      window.scrollTo({
+      element.scrollIntoView({
         behavior: 'smooth',
-        top: element.getBoundingClientRect().top + window.scrollY - headerOffset,
+        block: 'start'
       });
+      
+      // Adjust for header offset
+      setTimeout(() => {
+        window.scrollBy(0, -headerOffset);
+      }, 100);
     };
 
-    document.addEventListener('click', handleAnchorClick);
+    document.addEventListener('click', handleAnchorClick, { passive: false });
     return () => document.removeEventListener('click', handleAnchorClick);
   }, [isMobile]);
 
+  // Optimized cursor variants with better performance
   const cursorVariants = {
     default: {
       height: 32,
@@ -95,7 +115,8 @@ const Index = () => {
       x: cursorPosition.x - 16,
       y: cursorPosition.y - 16,
       backgroundColor: "rgba(100, 255, 218, 0.2)",
-      border: "1px solid #64ffda"
+      border: "1px solid #64ffda",
+      scale: 1
     },
     hover: {
       height: 50,
@@ -103,7 +124,8 @@ const Index = () => {
       x: cursorPosition.x - 25,
       y: cursorPosition.y - 25,
       backgroundColor: "rgba(100, 255, 218, 0.3)",
-      border: "1px solid #64ffda"
+      border: "1px solid #64ffda",
+      scale: 1
     },
     click: {
       height: 28,
@@ -111,7 +133,8 @@ const Index = () => {
       x: cursorPosition.x - 14,
       y: cursorPosition.y - 14,
       backgroundColor: "rgba(100, 255, 218, 0.5)",
-      border: "1px solid #64ffda"
+      border: "1px solid #64ffda",
+      scale: 0.9
     }
   };
 
@@ -123,32 +146,40 @@ const Index = () => {
         style={{ scaleX, transformOrigin: '0%' }}
       />
       
-      {/* Custom Cursor - desktop only */}
+      {/* Optimized Custom Cursor - desktop only */}
       {!isMobile && (
         <motion.div
-          className="fixed top-0 left-0 rounded-full pointer-events-none z-[999] hidden md:block"
+          className="fixed top-0 left-0 rounded-full pointer-events-none z-[999] hidden md:block will-change-transform"
           variants={cursorVariants}
           animate={cursorVariant}
-          transition={{ type: "spring", stiffness: 500, damping: 28 }}
+          transition={{ 
+            type: "spring", 
+            stiffness: 600, 
+            damping: 30,
+            mass: 0.1
+          }}
+          style={{
+            transform: `translate3d(${cursorPosition.x - 16}px, ${cursorPosition.y - 16}px, 0)`
+          }}
         />
       )}
       
-      {/* Background elements */}
+      {/* Optimized background elements */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-tech-blue to-tech-navy opacity-95"></div>
         <div className="absolute inset-0 bg-grid-pattern opacity-20"></div>
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-tech-teal opacity-5 rounded-full blur-3xl"></div>
-          <div className="absolute top-60 right-20 w-96 h-96 bg-purple-600 opacity-5 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-40 left-40 w-80 h-80 bg-blue-600 opacity-5 rounded-full blur-3xl"></div>
+          <div className="absolute top-20 left-10 w-72 h-72 bg-tech-teal opacity-5 rounded-full blur-3xl will-change-transform"></div>
+          <div className="absolute top-60 right-20 w-96 h-96 bg-purple-600 opacity-5 rounded-full blur-3xl will-change-transform"></div>
+          <div className="absolute bottom-40 left-40 w-80 h-80 bg-blue-600 opacity-5 rounded-full blur-3xl will-change-transform"></div>
         </div>
         
-        {/* Floating particles - reduced for mobile performance */}
+        {/* Optimized floating particles with reduced count and better performance */}
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(isMobile ? 5 : 10)].map((_, i) => (
+          {[...Array(isMobile ? 3 : 6)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute rounded-full bg-tech-teal/10"
+              className="absolute rounded-full bg-tech-teal/10 will-change-transform"
               initial={{ 
                 x: Math.random() * 100 + "%", 
                 y: -30,
@@ -158,15 +189,16 @@ const Index = () => {
                 y: "120vh"
               }}
               transition={{ 
-                duration: Math.random() * 20 + 10, 
+                duration: Math.random() * 15 + 20, 
                 repeat: Infinity,
-                ease: "linear"
+                ease: "linear",
+                delay: Math.random() * 5
               }}
               style={{ 
-                width: Math.random() * 40 + 10, 
-                height: Math.random() * 40 + 10,
+                width: Math.random() * 30 + 15, 
+                height: Math.random() * 30 + 15,
                 left: `${Math.random() * 100}%`,
-                opacity: Math.random() * 0.5
+                opacity: Math.random() * 0.3 + 0.1
               }}
             />
           ))}
