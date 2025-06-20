@@ -14,17 +14,18 @@ const Header = () => {
       const offset = window.scrollY;
       setScrolled(offset > 50);
 
-      // Simplified active section detection
+      // Get all sections and find which one is currently in view
       const sections = ["hero", "about", "skills", "projects", "patents", "achievements", "contact"];
       let current = "hero";
       
+      // Check each section to see which one is currently in the viewport
       for (const sectionId of sections) {
         const element = document.getElementById(sectionId);
         if (element) {
           const rect = element.getBoundingClientRect();
-          if (rect.top <= 200 && rect.bottom >= 200) {
+          // Consider a section active if its top is within 100px of the viewport top
+          if (rect.top <= 100 && rect.bottom > 100) {
             current = sectionId;
-            break;
           }
         }
       }
@@ -32,14 +33,15 @@ const Header = () => {
       setActiveSection(current);
     };
 
-    // Use passive listener with reduced frequency
-    let timeoutId: number;
+    // Throttle scroll events for better performance
+    let scrollTimeout: number;
     const throttledScroll = () => {
-      if (timeoutId) return;
-      timeoutId = window.setTimeout(() => {
+      if (scrollTimeout) return;
+      
+      scrollTimeout = window.setTimeout(() => {
         handleScroll();
-        timeoutId = 0;
-      }, 50);
+        scrollTimeout = 0;
+      }, 16); // ~60fps
     };
 
     window.addEventListener("scroll", throttledScroll, { passive: true });
@@ -47,50 +49,48 @@ const Header = () => {
     
     return () => {
       window.removeEventListener("scroll", throttledScroll);
-      if (timeoutId) clearTimeout(timeoutId);
+      if (scrollTimeout) window.clearTimeout(scrollTimeout);
     };
   }, []);
 
-  const navLinks = [{
-    name: "About",
-    url: "#about"
-  }, {
-    name: "Skills",
-    url: "#skills"
-  }, {
-    name: "Projects",
-    url: "#projects"
-  }, {
-    name: "Patents",
-    url: "#patents"
-  }, {
-    name: "Achievements",
-    url: "#achievements"
-  }, {
-    name: "Contact",
-    url: "#contact"
-  }];
+  const navLinks = [
+    { name: "About", url: "#about" },
+    { name: "Skills", url: "#skills" },
+    { name: "Projects", url: "#projects" },
+    { name: "Patents", url: "#patents" },
+    { name: "Achievements", url: "#achievements" },
+    { name: "Contact", url: "#contact" }
+  ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault();
+    console.log(`Navigating to section: ${sectionId}`);
     
     // Close mobile menu immediately
     setIsMenuOpen(false);
     
-    // Set active section immediately for better UX
+    // Find the target element
+    const targetElement = document.getElementById(sectionId);
+    if (!targetElement) {
+      console.error(`Section ${sectionId} not found`);
+      return;
+    }
+    
+    // Calculate scroll position with proper offset
+    const headerHeight = 80;
+    const elementTop = targetElement.offsetTop;
+    const scrollToPosition = elementTop - headerHeight;
+    
+    console.log(`Scrolling to position: ${scrollToPosition} for section: ${sectionId}`);
+    
+    // Update active section immediately
     setActiveSection(sectionId);
     
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const headerHeight = 80;
-      const elementTop = element.offsetTop - headerHeight;
-      
-      // Use native scrollTo for better performance
-      window.scrollTo({
-        top: elementTop,
-        behavior: "smooth"
-      });
-    }
+    // Scroll to the target position
+    window.scrollTo({
+      top: Math.max(0, scrollToPosition),
+      behavior: "smooth"
+    });
   };
 
   return (
