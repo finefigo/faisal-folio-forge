@@ -2,6 +2,7 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 import About from '../components/About';
 import Achievements from '../components/Achievements';
 import Contact from '../components/Contact';
+import CursorEffects from '../components/CursorEffects';
 import Education from '../components/Education';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -31,6 +32,7 @@ const Index = () => {
         <div className="ambient-glow ambient-glow-two" />
         <div className="ambient-grid" />
       </div>
+      <CursorEffects />
       <Header />
       <main id="main-content" className="relative z-10">
         <Hero />
