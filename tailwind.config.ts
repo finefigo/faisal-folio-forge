@@ -59,6 +59,8 @@ export default {
         "tech-slate": "hsl(var(--tech-slate) / <alpha-value>)",
         "tech-light": "hsl(var(--tech-light) / <alpha-value>)",
         "tech-teal": "hsl(var(--tech-teal) / <alpha-value>)",
+        "tech-blue-accent": "hsl(var(--tech-blue-accent) / <alpha-value>)",
+        "tech-warm": "hsl(var(--tech-warm) / <alpha-value>)",
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -9,6 +9,7 @@ type Project = {
   summary: string;
   highlights: string[];
   tags: string[];
+  visual: 'tooling' | 'vision' | 'android' | 'web';
   icon: LucideIcon;
   codeLink: string;
 };
@@ -25,6 +26,7 @@ const projects: Project[] = [
       'Built with zero runtime dependencies.',
     ],
     tags: ['TypeScript', 'CLI', 'Desktop', 'Account management'],
+    visual: 'tooling',
     icon: Terminal,
     codeLink: 'https://github.com/finefigo/claudedeck',
   },
@@ -38,6 +40,7 @@ const projects: Project[] = [
       'Integrated the model into a live HTML, CSS, and JavaScript frontend.',
     ],
     tags: ['Computer Vision', 'Accessibility', 'HTML', 'JavaScript'],
+    visual: 'vision',
     icon: Hand,
     codeLink: 'https://github.com/finefigo/signify-isl',
   },
@@ -51,6 +54,7 @@ const projects: Project[] = [
       'Uses a SQL database to store and retrieve academic records.',
     ],
     tags: ['Android', 'Java', 'XML', 'SQL'],
+    visual: 'android',
     icon: GraduationCap,
     codeLink: 'https://github.com/finefigo/Learning-Partner',
   },
@@ -64,6 +68,7 @@ const projects: Project[] = [
       'Combines JWT authentication and a responsive React UI with a Node.js, Express, and MongoDB backend.',
     ],
     tags: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT'],
+    visual: 'web',
     icon: MapPin,
     codeLink: 'https://github.com/finefigo/Salon-Finder',
   },
@@ -92,7 +97,7 @@ const Projects = () => (
               transition={{ duration: 0.45, delay: (index % 2) * 0.07 }}
               className="project-card group"
             >
-              <div className="project-art" aria-hidden="true">
+          <div className={'project-art project-art-' + project.visual} aria-hidden="true">
                 <div className="project-art-grid" />
                 <span className="project-art-number">{project.number}</span>
                 <span className="project-art-icon"><Icon size={28} strokeWidth={1.5} /></span>

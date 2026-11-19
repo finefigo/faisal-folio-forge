@@ -10,7 +10,7 @@ const highlights = [
 const Hero = () => (
   <section
     id="hero"
-    className="hero-section section-anchor relative flex min-h-[calc(100vh-5rem)] items-center py-28 sm:py-32"
+    className="hero-section hero-editorial section-anchor relative flex min-h-[calc(100vh-5rem)] items-center py-28 sm:py-32"
   >
     <div className="container mx-auto grid items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.15fr_0.85fr]">
       <motion.div
@@ -19,13 +19,26 @@ const Hero = () => (
         transition={{ duration: 0.65, ease: 'easeOut' }}
         className="max-w-3xl"
       >
+        <p className="hero-edition">
+          <span>PORTFOLIO / 2026</span>
+          <span className="hero-edition-rule" aria-hidden="true" />
+          <span className="hidden sm:inline">JIS COLLEGE OF ENGINEERING</span>
+        </p>
         <p className="eyebrow">
           <span className="status-dot" />
-          Final-year Computer Science & Engineering student
+          Final-year CSE student · Open to fresher roles
         </p>
         <h1 className="hero-title mt-7">
-          Faisal <span className="text-tech-teal">Imtiaz</span>
+          Faisal <span className="hero-name-accent">Imtiaz</span>
+          <span className="hero-title-dot" aria-hidden="true">.</span>
         </h1>
+        <motion.span
+          className="hero-title-rule"
+          aria-hidden="true"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.8, delay: 0.45, ease: 'easeOut' }}
+        />
         <p className="hero-lede mt-6 max-w-2xl">
           I build practical software across full-stack development and applied AI.
         </p>
@@ -78,7 +91,7 @@ const Hero = () => (
         <div className="portrait-card">
           <div className="portrait-topline">
             <span>PROFILE</span>
-            <span className="portrait-online"><span className="status-dot" /> OPEN TO OPPORTUNITIES</span>
+            <span className="portrait-online"><span className="status-dot" /> OPEN TO FRESHER ROLES</span>
           </div>
           <img
             src="https://i.postimg.cc/qqV5z5Hn/Whats-App-Image-2024-09-28-at-22-24-41-0633665e.jpg"
