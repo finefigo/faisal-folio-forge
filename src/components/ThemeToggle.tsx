@@ -17,25 +17,16 @@ const ThemeToggle = ({ theme, onToggle }: ThemeToggleProps) => (
     title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
     onClick={onToggle}
   >
-    <span className="theme-toggle-icons" aria-hidden="true">
-      <Sun size={14} />
-      <Moon size={14} />
-    </span>
     <motion.span
       className="theme-toggle-thumb"
-      animate={{ x: theme === 'light' ? 30 : 0 }}
+      animate={{ x: theme === 'dark' ? 30 : 0 }}
       transition={{ type: 'spring', stiffness: 520, damping: 32 }}
       aria-hidden="true"
-    >
-      <motion.span
-        key={theme}
-        initial={{ rotate: -55, scale: 0.65, opacity: 0 }}
-        animate={{ rotate: 0, scale: 1, opacity: 1 }}
-        transition={{ type: 'spring', stiffness: 420, damping: 22 }}
-      >
-        {theme === 'light' ? <Sun size={15} /> : <Moon size={15} />}
-      </motion.span>
-    </motion.span>
+    />
+    <span className="theme-toggle-icons" aria-hidden="true">
+      <Sun size={14} className={theme === 'light' ? 'theme-toggle-icon-active' : undefined} />
+      <Moon size={14} className={theme === 'dark' ? 'theme-toggle-icon-active' : undefined} />
+    </span>
   </button>
 );
 
