@@ -326,10 +326,42 @@
 
   .hero-portrait-wrap {
     @apply relative;
+    isolation: isolate;
+  }
+
+  .hero-portrait-wrap::before,
+  .hero-portrait-wrap::after {
+    content: "";
+    @apply pointer-events-none absolute rounded-full;
+  }
+
+  .hero-portrait-wrap::before {
+    @apply -right-7 -top-8 z-0 h-28 w-28;
+    background:
+      radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.92), transparent 8%),
+      radial-gradient(circle at 38% 34%, rgba(127, 197, 226, 0.95), rgba(63, 126, 173, 0.72) 38%, rgba(100, 255, 218, 0.12) 72%, transparent 74%);
+    box-shadow: inset -12px -12px 26px rgba(5, 13, 25, 0.42), 0 0 52px rgba(87, 166, 220, 0.2);
+    animation: hero-orb-float 8s ease-in-out infinite;
+  }
+
+  .hero-portrait-wrap::after {
+    @apply -right-12 -top-2 z-[1] h-16 w-40 border border-tech-blue-accent/35;
+    transform: rotate(-28deg);
+    animation: hero-orbit-drift 16s linear infinite;
+  }
+
+  @keyframes hero-orb-float {
+    0%, 100% { transform: translateY(0) rotate(-8deg); }
+    50% { transform: translateY(-9px) rotate(5deg); }
+  }
+
+  @keyframes hero-orbit-drift {
+    from { transform: rotate(-28deg); }
+    to { transform: rotate(332deg); }
   }
 
   .portrait-orbit {
-    @apply absolute -inset-5 rounded-[2rem] border border-tech-blue-accent/20;
+    @apply absolute -inset-5 z-0 rounded-[2rem] border border-tech-blue-accent/20;
     transform: rotate(4deg) scale(0.96);
     transition: transform 700ms cubic-bezier(0.2, 0.75, 0.25, 1), border-color 350ms ease;
   }
@@ -340,7 +372,7 @@
   }
 
   .portrait-card {
-    @apply relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-tech-navy/80 p-3 shadow-2xl;
+    @apply relative z-[2] overflow-hidden rounded-[1.6rem] border border-white/10 bg-tech-navy/80 p-3 shadow-2xl;
     transform: rotate(-2deg);
     transition: transform 500ms cubic-bezier(0.2, 0.75, 0.25, 1), box-shadow 500ms ease;
   }
@@ -566,6 +598,18 @@
     opacity: 0.58;
   }
 
+  .command-trigger {
+    @apply gap-2;
+  }
+
+  .command-trigger-shortcut {
+    @apply ml-1 rounded border border-white/15 px-1.5 py-0.5 font-mono text-[10px] leading-none text-tech-slate;
+  }
+
+  .command-palette-hint {
+    @apply flex flex-wrap justify-end gap-x-4 gap-y-1 border-t border-border px-4 py-3 font-mono text-[9px] uppercase tracking-wider text-muted-foreground;
+  }
+
   .cursor-layer {
     @apply pointer-events-none fixed inset-0 z-[110];
   }
@@ -647,6 +691,10 @@ html[data-theme="light"] .theme-toggle-thumb {
 
 html[data-theme="light"] .theme-toggle-icon-active {
   color: #ffffff;
+}
+
+html[data-theme="light"] .command-trigger-shortcut {
+  border-color: rgba(25, 52, 70, 0.18);
 }
 
 html[data-theme="light"] .mobile-nav-link-active {

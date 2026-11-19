@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import ThemeToggle, { type PortfolioTheme } from './ThemeToggle';
+import SiteCommandPalette from './SiteCommandPalette';
 
 const navLinks = [
   { id: 'about', label: 'About' },
@@ -122,6 +123,7 @@ const Header = () => {
               theme={theme}
               onToggle={() => setTheme((current) => (current === 'dark' ? 'light' : 'dark'))}
             />
+            <SiteCommandPalette />
             <a
               className="btn-secondary btn-small hidden items-center gap-2 lg:inline-flex"
               href="https://github.com/finefigo"
