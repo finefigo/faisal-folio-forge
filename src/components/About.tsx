@@ -32,10 +32,10 @@ const About = () => (
             responsive interface.
           </p>
           <p className="mt-6 text-base leading-7 text-tech-slate">
-            My project work ranges from a local account-management tool and a MERN
-            booking platform to an Android student portal and an ISL computer-vision
-            prototype. I’m looking to bring that hands-on range to a team working on
-            real products while continuing to grow as an engineer.
+            My project work ranges from a local account-management tool and a salon
+            booking platform backed by MySQL to an Android student portal and an ISL
+            computer-vision prototype. I’m looking to bring that hands-on range to a
+            team working on real products while continuing to grow as an engineer.
           </p>
         </motion.div>
 
