@@ -472,6 +472,10 @@
     background: linear-gradient(128deg, #101b2c 0%, #14354a 58%, #1d3d50 100%);
   }
 
+  .project-art-marketplace {
+    background: linear-gradient(128deg, #101b2c 0%, #123d43 54%, #23534b 100%);
+  }
+
   .project-art-grid {
     @apply absolute inset-0 z-0 opacity-50;
     background-image:

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowUpRight, GraduationCap, Hand, MapPin, Terminal } from 'lucide-react';
+import { ArrowUpRight, GraduationCap, Hand, MapPin, ShoppingBag, Terminal } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 type Project = {
@@ -9,7 +9,7 @@ type Project = {
   summary: string;
   highlights: string[];
   tags: string[];
-  visual: 'tooling' | 'vision' | 'android' | 'web';
+  visual: 'marketplace' | 'tooling' | 'vision' | 'android' | 'web';
   icon: LucideIcon;
   codeLink: string;
 };
@@ -17,6 +17,21 @@ type Project = {
 const projects: Project[] = [
   {
     number: '01',
+    title: 'TradeNest',
+    category: 'Full-stack marketplace',
+    summary: 'A marketplace for buying, selling, and renting products, with secure accounts, order management, and AI-powered customer support.',
+    highlights: [
+      'Pairs a React and Vite frontend with an Express API deployed through Vercel serverless functions.',
+      'Uses JWT authentication, bcrypt password hashing, MongoDB, and optional reCAPTCHA protection.',
+      'Verifies order handoffs with hashed six-digit OTPs and includes an OpenAI customer assistant.',
+    ],
+    tags: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT', 'OpenAI', 'Vercel'],
+    visual: 'marketplace',
+    icon: ShoppingBag,
+    codeLink: 'https://github.com/finefigo/tradenest-marketplace',
+  },
+  {
+    number: '02',
     title: 'ClaudeDeck',
     category: 'Developer tooling',
     summary: 'A cross-platform dashboard and CLI for managing Claude Code accounts.',
@@ -31,7 +46,7 @@ const projects: Project[] = [
     codeLink: 'https://github.com/finefigo/claudedeck',
   },
   {
-    number: '02',
+    number: '03',
     title: 'Signify',
     category: 'Computer vision',
     summary: 'A prototype that translates Indian Sign Language hand gestures into real-time text and speech.',
@@ -45,7 +60,7 @@ const projects: Project[] = [
     codeLink: 'https://github.com/finefigo/signify-isl',
   },
   {
-    number: '03',
+    number: '04',
     title: 'Learning-Partner',
     category: 'Android',
     summary: 'An Android student portal for profiles and academic tracking.',
@@ -59,7 +74,7 @@ const projects: Project[] = [
     codeLink: 'https://github.com/finefigo/Learning-Partner',
   },
   {
-    number: '04',
+    number: '05',
     title: 'Salon Finder',
     category: 'Full-stack web',
     summary: 'A MERN platform for finding nearby salons and booking service slots.',
@@ -81,7 +96,7 @@ const Projects = () => (
         <p className="section-kicker">03 / SELECTED WORK</p>
         <h2 className="section-title">Projects built around real problems</h2>
         <p className="section-intro">
-          A selection across developer tooling, computer vision, Android, and full-stack web.
+          A selection across marketplaces, developer tooling, computer vision, Android, and full-stack web.
         </p>
       </div>
 
