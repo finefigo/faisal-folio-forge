@@ -1,91 +1,43 @@
+import { motion } from 'framer-motion';
+import { Award, Trophy } from 'lucide-react';
 
-import { Award, Star, Trophy } from "lucide-react";
-import { 
-  Carousel, 
-  CarouselContent, 
-  CarouselItem, 
-  CarouselNext, 
-  CarouselPrevious 
-} from "@/components/ui/carousel";
+const achievements = [
+  { name: 'JISTECH2K23', icon: Trophy },
+  { name: 'JISTECH2K25', icon: Award },
+];
 
-const AchievementCard = ({ 
-  icon: Icon, 
-  title, 
-  description 
-}: { 
-  icon: any; 
-  title: string; 
-  description: string;
-}) => (
-  <div className="glass-card flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-6 hover-card hover-glow h-full">
-    <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-tech-teal/10 text-tech-teal">
-      <Icon size={24} />
-    </div>
-    <div>
-      <h3 className="text-xl font-semibold text-tech-light mb-2">{title}</h3>
-      <p className="text-tech-slate">{description}</p>
-    </div>
-  </div>
-);
-
-const Achievements = () => {
-  const achievements = [
-    {
-      icon: Trophy,
-      title: "Winner of JISTECH2k23",
-      description: "First place in the JISTECH2k23 competition for developing innovative technological solutions."
-    },
-    {
-      icon: Award,
-      title: "Winner of JISTECH 2k25",
-      description: "Recognized with top honors at JISTECH 2k25 for excellence in advanced technology development."
-    },
-    {
-      icon: Star,
-      title: "Holder of 3 Patents",
-      description: "Creator of three patented technologies in the fields of smart energy, automotive systems, and epidemic modeling."
-    }
-  ];
-
-  return (
-    <section id="achievements" className="py-20 relative">
-      {/* Background decorative elements */}
-      <div className="absolute top-20 left-0 w-72 h-72 bg-blue-500/5 rounded-full filter blur-3xl"></div>
-      <div className="absolute bottom-10 right-10 w-60 h-60 bg-tech-teal/5 rounded-full filter blur-3xl"></div>
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="section-heading section-heading-05">Achievements & Recognition</h2>
-        
-        <div className="relative">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent>
-              {achievements.map((achievement, index) => (
-                <CarouselItem key={index} className="md:basis-1/1 lg:basis-1/1">
-                  <div className="p-1">
-                    <AchievementCard
-                      icon={achievement.icon}
-                      title={achievement.title}
-                      description={achievement.description}
-                    />
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="flex justify-center mt-6">
-              <CarouselPrevious className="relative static mx-2 bg-tech-navy-light border-tech-navy-light text-tech-teal hover:bg-tech-teal hover:text-tech-navy" />
-              <CarouselNext className="relative static mx-2 bg-tech-navy-light border-tech-navy-light text-tech-teal hover:bg-tech-teal hover:text-tech-navy" />
-            </div>
-          </Carousel>
-        </div>
+const Achievements = () => (
+  <section id="awards" className="section-anchor section-space section-muted">
+    <div className="container mx-auto px-5 sm:px-8">
+      <div className="section-heading-row">
+        <p className="section-kicker">06 / RECOGNITION</p>
+        <h2 className="section-title">A couple of proud moments</h2>
+        <p className="section-intro">
+          Secured first position at both JISTECH2K23 and JISTECH2K25 technical fests.
+        </p>
       </div>
-    </section>
-  );
-};
+
+      <div className="mt-9 grid gap-4 md:grid-cols-2">
+        {achievements.map(({ name, icon: Icon }, index) => (
+          <motion.article
+            key={name}
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.4, delay: index * 0.06 }}
+            className="award-card"
+          >
+            <span className="award-icon"><Icon aria-hidden="true" size={21} /></span>
+            <div>
+              <p className="font-mono text-xs text-tech-teal">1ST POSITION</p>
+              <h3 className="mt-1 text-xl font-semibold text-tech-light">{name}</h3>
+              <p className="mt-2 text-sm text-tech-slate">Technical fest winner</p>
+            </div>
+          </motion.article>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 export default Achievements;

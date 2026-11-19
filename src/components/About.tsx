@@ -1,68 +1,67 @@
+import { motion } from 'framer-motion';
+import { Brain, Code2, Smartphone, Wrench } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
-import { Card } from "@/components/ui/card";
+const focusAreas: { icon: LucideIcon; label: string }[] = [
+  { icon: Code2, label: 'Full-stack products' },
+  { icon: Brain, label: 'Applied AI & ML' },
+  { icon: Smartphone, label: 'Android applications' },
+  { icon: Wrench, label: 'Developer tooling' },
+];
 
-const About = () => {
-  return (
-    <section id="about" className="py-20 relative">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="section-heading section-heading-01">About Me</h2>
-        
-        <div className="flex flex-col lg:flex-row gap-10">
-          <div className="lg:w-3/5">
-            <div className="prose prose-invert max-w-none">
-              <p className="text-tech-slate mb-4 text-lg">
-                Hi, I'm Faisal Imtiaz — a 2nd-year engineering student at <span className="highlight">JIS College of Engineering</span> with 
-                a passion for building smart, useful technology.
-              </p>
-              
-              <p className="text-tech-slate mb-4 text-lg">
-                I specialize in mobile app frontend design using <span className="highlight">XML</span> and 
-                <span className="highlight"> Jetpack Compose</span>. I'm also exploring AI/ML using 
-                <span className="highlight"> TensorFlow</span>, diving into AR development with 
-                <span className="highlight"> Unity</span>, and love solving real-world problems using 
-                <span className="highlight"> Generative AI</span> and prompt engineering.
-              </p>
-              
-              <p className="text-tech-slate mb-6 text-lg">
-                I enjoy using tools like <span className="highlight">Vibe Coding</span> to rapidly prototype ideas and bring them to life. 
-                My focus is on creating <span className="highlight">accessible, real-time, and user-centric</span> tech that 
-                actually makes an impact.
-              </p>
-              
-              <div className="mt-8">
-                <h3 className="text-xl font-semibold text-tech-light mb-3">
-                  Currently working with:
-                </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-tech-slate font-mono text-sm mt-4">
-                  {[
-                    "Kotlin", "Python", "TensorFlow",
-                    "XML", "Jetpack Compose", "AR/VR",
-                    "Prompt Engineering", "Mobile App Dev", "Generative AI"
-                  ].map((tech) => (
-                    <div key={tech} className="flex items-center mb-2 bg-tech-navy/80 py-2 px-3 rounded-lg">
-                      <span className="text-tech-teal mr-2">▹</span> {tech}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="lg:w-2/5 flex justify-center items-center">
-            <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-xl relative group">
-              <div className="absolute inset-0 border-2 border-tech-teal rounded-xl translate-x-5 translate-y-5 transition-transform group-hover:translate-x-3 group-hover:translate-y-3"></div>
-              <div className="absolute inset-0 bg-tech-teal/10 rounded-xl z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <img 
-                src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                alt="Faisal Imtiaz" 
-                className="w-full h-full object-cover rounded-xl relative z-0" 
-              />
-            </div>
-          </div>
-        </div>
+const About = () => (
+  <section id="about" className="section-anchor section-space">
+    <div className="container mx-auto px-5 sm:px-8">
+      <div className="section-heading-row">
+        <p className="section-kicker">01 / ABOUT</p>
+        <h2 className="section-title">A little about how I work</h2>
       </div>
-    </section>
-  );
-};
+
+      <div className="mt-10 grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.45 }}
+          className="max-w-3xl"
+        >
+          <p className="text-lg leading-8 text-tech-slate sm:text-xl">
+            I’m a final-year Computer Science and Engineering student at{' '}
+            <span className="text-tech-light">JIS College of Engineering</span>. I enjoy
+            taking a problem from its data and product flows through to a clear,
+            responsive interface.
+          </p>
+          <p className="mt-6 text-base leading-7 text-tech-slate">
+            My project work ranges from a local account-management tool and a MERN
+            booking platform to an Android student portal and an ISL computer-vision
+            prototype. I’m looking to bring that hands-on range to a team working on
+            real products while continuing to grow as an engineer.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.45, delay: 0.08 }}
+          className="glass-card p-6 sm:p-7"
+        >
+          <div className="flex items-center justify-between gap-4">
+            <h3 className="text-lg font-semibold text-tech-light">Areas I’m building in</h3>
+            <span className="font-mono text-xs text-tech-teal">FOCUS</span>
+          </div>
+          <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+            {focusAreas.map(({ icon: Icon, label }) => (
+              <li key={label} className="focus-row">
+                <Icon aria-hidden="true" size={17} className="shrink-0 text-tech-teal" />
+                <span>{label}</span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      </div>
+    </div>
+  </section>
+);
 
 export default About;

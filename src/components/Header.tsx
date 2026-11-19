@@ -1,262 +1,149 @@
+import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
 
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+const navLinks = [
+  { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'research', label: 'Research' },
+  { id: 'education', label: 'Education' },
+  { id: 'awards', label: 'Awards' },
+  { id: 'contact', label: 'Contact' },
+];
 
 const Header = () => {
+  const [activeSection, setActiveSection] = useState('hero');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      setScrolled(offset > 50);
+    const sections = navLinks
+      .map((link) => document.getElementById(link.id))
+      .filter((section): section is HTMLElement => section !== null);
 
-      // Get all sections and find which one is currently in view
-      const sections = ["hero", "about", "skills", "projects", "patents", "achievements", "contact"];
-      let current = "hero";
-      
-      // Check each section to see which one is currently in the viewport
-      for (const sectionId of sections) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          // Consider a section active if its top is within 100px of the viewport top
-          if (rect.top <= 100 && rect.bottom > 100) {
-            current = sectionId;
-          }
-        }
-      }
-      
-      setActiveSection(current);
-    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleSection = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visibleSection) setActiveSection(visibleSection.target.id);
+      },
+      { rootMargin: '-38% 0px -52% 0px', threshold: [0, 0.15, 0.5] },
+    );
 
-    // Throttle scroll events for better performance
-    let scrollTimeout: number;
-    const throttledScroll = () => {
-      if (scrollTimeout) return;
-      
-      scrollTimeout = window.setTimeout(() => {
-        handleScroll();
-        scrollTimeout = 0;
-      }, 16); // ~60fps
-    };
-
-    window.addEventListener("scroll", throttledScroll, { passive: true });
-    handleScroll(); // Initial call
-    
-    return () => {
-      window.removeEventListener("scroll", throttledScroll);
-      if (scrollTimeout) window.clearTimeout(scrollTimeout);
-    };
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
-  const navLinks = [
-    { name: "About", url: "#about" },
-    { name: "Skills", url: "#skills" },
-    { name: "Projects", url: "#projects" },
-    { name: "Patents", url: "#patents" },
-    { name: "Achievements", url: "#achievements" },
-    { name: "Contact", url: "#contact" }
-  ];
+  useEffect(() => {
+    if (!isMenuOpen) return;
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
-    e.preventDefault();
-    console.log(`Navigating to section: ${sectionId}`);
-    
-    // Close mobile menu immediately
-    setIsMenuOpen(false);
-    
-    // Find the target element
-    const targetElement = document.getElementById(sectionId);
-    if (!targetElement) {
-      console.error(`Section ${sectionId} not found`);
-      return;
-    }
-    
-    // Calculate scroll position with proper offset
-    const headerHeight = 80;
-    const elementTop = targetElement.offsetTop;
-    const scrollToPosition = elementTop - headerHeight;
-    
-    console.log(`Scrolling to position: ${scrollToPosition} for section: ${sectionId}`);
-    
-    // Update active section immediately
-    setActiveSection(sectionId);
-    
-    // Scroll to the target position
-    window.scrollTo({
-      top: Math.max(0, scrollToPosition),
-      behavior: "smooth"
-    });
-  };
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsMenuOpen(false);
+    };
+
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [isMenuOpen]);
 
   return (
-    <motion.header 
-      initial={{ y: -100 }} 
-      animate={{ y: 0 }} 
-      transition={{
-        type: "spring",
-        stiffness: 100,
-        damping: 20
-      }} 
-      className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? "bg-tech-blue/95 backdrop-blur-md shadow-lg py-3" 
-          : "bg-tech-blue/80 backdrop-blur-sm py-5"
-      }`}
+    <motion.header
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className="site-header fixed inset-x-0 top-0 z-50"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <nav className="flex justify-between items-center">
-          <motion.div className="flex items-center" whileHover={{ scale: 1.05 }}>
-            <a 
-              href="#hero" 
-              onClick={(e) => handleNavClick(e, "hero")}
-              className="text-tech-teal font-mono text-xl font-semibold"
+      <div className="container mx-auto flex min-h-20 items-center justify-between gap-6 px-5 sm:px-8">
+        <a
+          href="#hero"
+          className="brand-mark shrink-0 text-lg font-semibold tracking-tight text-tech-light"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          Faisal<span className="text-tech-teal">.</span>
+        </a>
+
+        <nav className="hidden items-center gap-5 xl:flex" aria-label="Primary navigation">
+          {navLinks.map((link, index) => (
+            <a
+              key={link.id}
+              href={'#' + link.id}
+              aria-current={activeSection === link.id ? 'location' : undefined}
+              className={
+                'nav-link whitespace-nowrap ' +
+                (activeSection === link.id ? 'nav-link-active' : '')
+              }
             >
-              Faisal Imtiaz
+              <span className="nav-number">{String(index + 1).padStart(2, '0')}</span>
+              {link.label}
             </a>
-          </motion.div>
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-6">
-            <ul className="flex space-x-6 font-medium text-sm">
-              {navLinks.map((link, index) => {
-                const sectionId = link.url.substring(1);
-                const isActive = sectionId === activeSection;
-                return (
-                  <li key={link.name} className="relative">
-                    <a 
-                      href={link.url} 
-                      onClick={(e) => handleNavClick(e, sectionId)} 
-                      className={`nav-link transition-colors duration-300 hover:text-tech-teal cursor-pointer ${
-                        isActive ? "text-tech-teal" : "text-tech-slate"
-                      }`}
-                    >
-                      <span className="text-tech-teal mr-1">0{index + 1}.</span>
-                      {link.name}
-                    </a>
-                    {isActive && (
-                      <motion.div 
-                        className="absolute -bottom-1 left-0 h-0.5 bg-tech-teal" 
-                        layoutId="activeSection" 
-                        initial={{ width: 0 }} 
-                        animate={{ width: "100%" }} 
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 30
-                        }} 
-                      />
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button asChild className="btn-outline text-sm">
-                <a 
-                  href="https://drive.google.com/file/d/1vHYfO0NDGwzDWsvBlW0i2LUtqJPCBdMU/view?usp=drivesdk" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  Resume
-                </a>
-              </Button>
-            </motion.div>
-          </div>
-
-          {/* Mobile Menu Toggle */}
-          <div className="md:hidden">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={() => setIsMenuOpen(!isMenuOpen)} 
-              aria-label="Toggle Menu"
-              className="p-2 h-12 w-12 bg-tech-navy-light/50 hover:bg-tech-navy-light text-tech-teal"
-            >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </Button>
-          </div>
+          ))}
         </nav>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <motion.div 
-            className="md:hidden fixed inset-0 top-[72px] bg-tech-blue/95 backdrop-blur-md z-40" 
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 100 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          >
-            <div className="flex flex-col items-center justify-center h-full">
-              <motion.ul 
-                className="flex flex-col space-y-8 text-center font-medium text-lg w-full px-6" 
-                initial="hidden" 
-                animate="visible" 
-                variants={{
-                  hidden: {},
-                  visible: {
-                    transition: { staggerChildren: 0.1 }
-                  }
-                }}
-              >
-                {navLinks.map((link, index) => {
-                  const sectionId = link.url.substring(1);
-                  const isActive = sectionId === activeSection;
-                  return (
-                    <motion.li 
-                      key={link.name} 
-                      className="nav-item" 
-                      variants={{
-                        hidden: { opacity: 0, y: 20 },
-                        visible: { opacity: 1, y: 0 }
-                      }}
-                    >
-                      <a 
-                        href={link.url} 
-                        className={`nav-link py-3 px-4 block rounded-lg transition-colors duration-300 cursor-pointer ${
-                          isActive 
-                            ? "bg-tech-teal/10 text-tech-teal" 
-                            : "text-tech-slate hover:text-tech-teal"
-                        }`} 
-                        onClick={(e) => handleNavClick(e, sectionId)}
-                      >
-                        <span className="text-tech-teal block mb-1">
-                          0{index + 1}.
-                        </span>
-                        {link.name}
-                      </a>
-                    </motion.li>
-                  );
-                })}
-              </motion.ul>
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="mt-10"
-              >
-                <Button 
-                  asChild 
-                  className="btn-outline text-base h-12 px-8"
-                >
-                  <a 
-                    href="https://drive.google.com/file/d/1vHYfO0NDGwzDWsvBlW0i2LUtqJPCBdMU/view?usp=drivesdk" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Resume
-                  </a>
-                </Button>
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
+        <a
+          className="btn-secondary btn-small hidden items-center gap-2 lg:inline-flex"
+          href="https://github.com/finefigo"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub <ArrowUpRight aria-hidden="true" size={15} />
+        </a>
+
+        <button
+          type="button"
+          className="icon-button xl:hidden"
+          aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setIsMenuOpen((open) => !open)}
+        >
+          {isMenuOpen ? <X size={21} /> : <Menu size={21} />}
+        </button>
       </div>
+
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.nav
+            id="mobile-navigation"
+            key="mobile-navigation"
+            aria-label="Mobile navigation"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18 }}
+            className="mobile-navigation xl:hidden"
+          >
+            {navLinks.map((link, index) => (
+              <a
+                key={link.id}
+                href={'#' + link.id}
+                className={
+                  'mobile-nav-link ' +
+                  (activeSection === link.id ? 'mobile-nav-link-active' : '')
+                }
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <span className="nav-number">{String(index + 1).padStart(2, '0')}</span>
+                {link.label}
+              </a>
+            ))}
+            <a
+              className="btn-secondary mt-3 inline-flex items-center justify-center gap-2"
+              href="https://github.com/finefigo"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              GitHub <ArrowUpRight aria-hidden="true" size={16} />
+            </a>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 };
