@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Award, BookOpen, GraduationCap } from 'lucide-react';
+import { ArrowUpRight, Award, BookOpen, GraduationCap } from 'lucide-react';
 
 const education = [
   {
@@ -21,10 +21,30 @@ const education = [
 ];
 
 const certifications = [
-  { title: 'MERN Stack Development with AI Integration', provider: 'Euphoria Genx', date: 'December 2025' },
-  { title: 'Android Development', provider: 'BCT Training', date: 'February 2025' },
-  { title: 'Programming in Java', provider: 'NPTEL', date: 'July–October 2025' },
-  { title: 'Generative Artificial Intelligence (Gen AI)', provider: 'BCT Training', date: 'February 2026' },
+  {
+    title: 'MERN Stack Development with AI Integration',
+    provider: 'Euphoria Genx',
+    date: 'December 2025',
+    url: 'https://drive.google.com/file/d/1CksykuC90E6uoNFdRQYKycO-5sQQqqbA/view?usp=sharing',
+  },
+  {
+    title: 'Android Development',
+    provider: 'BCT Training',
+    date: 'February 2025',
+    url: 'https://drive.google.com/file/d/1L8a9ddEARqgD6X_WlNjS-e8asVBC28Pc/view?usp=sharing',
+  },
+  {
+    title: 'Programming in Java',
+    provider: 'NPTEL',
+    date: 'July–October 2025',
+    url: 'https://drive.google.com/file/d/1k-OCSqx3Oh871eLZ6PSAsNAn21jDtDCC/view?usp=sharing',
+  },
+  {
+    title: 'Generative Artificial Intelligence (Gen AI)',
+    provider: 'BCT Training',
+    date: 'February 2026',
+    url: 'https://drive.google.com/file/d/1ffmNNYYXrXljdJuYH1kIFlpH3MtwW1fK/view?usp=sharing',
+  },
 ];
 
 const Education = () => (
@@ -84,6 +104,16 @@ const Education = () => (
                 <p className="mt-1 font-mono text-[11px] uppercase tracking-wide text-tech-teal/80">
                   {certification.date}
                 </p>
+                <a
+                  className="project-link mt-3 inline-flex items-center gap-1.5 text-xs"
+                  href={certification.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View certificate: ${certification.title}`}
+                >
+                  View certificate
+                  <ArrowUpRight aria-hidden="true" size={14} />
+                </a>
               </motion.article>
             ))}
           </div>
