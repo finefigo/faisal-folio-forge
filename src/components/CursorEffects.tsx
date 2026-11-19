@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { createPortal } from 'react-dom';
 
 const CursorEffects = () => {
   const [enabled, setEnabled] = useState(false);
@@ -31,11 +32,15 @@ const CursorEffects = () => {
       if (event.pointerType === 'touch') return;
       pointerX.set(event.clientX);
       pointerY.set(event.clientY);
-      setVisible(true);
       const target = event.target;
+      const element = target instanceof Element ? target : null;
+      const isTextEntry = Boolean(
+        element?.closest('input, textarea, [contenteditable="true"], [cmdk-input-wrapper]'),
+      );
+      setVisible(!isTextEntry);
       setInteractive(
-        target instanceof Element &&
-          Boolean(target.closest('a, button, input, textarea, [role="button"]')),
+        !isTextEntry &&
+          Boolean(element?.closest('a, button, [cmdk-item], [role="button"]')),
       );
     };
     const handlePointerDown = () => setPressed(true);
@@ -65,7 +70,7 @@ const CursorEffects = () => {
 
   if (!enabled) return null;
 
-  return (
+  return createPortal(
     <div className="cursor-layer" aria-hidden="true">
       <motion.span
         className="cursor-trail"
@@ -79,7 +84,8 @@ const CursorEffects = () => {
         animate={{ opacity: visible ? 1 : 0, scale: pressed ? 0.68 : interactive ? 1.25 : 1 }}
         transition={{ type: 'spring', stiffness: 650, damping: 30 }}
       />
-    </div>
+    </div>,
+    document.body,
   );
 };
 
